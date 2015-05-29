@@ -1,2 +1,21 @@
 # Calender
-Calender Project
+## Installation
+
+You need node.js for installing Calender.
+First clone it from GitHub and then install dependencies.
+
+```
+git clone git@github.com:ScientiaEtVeritas/Calender.git
+cd Calender
+npm install
+```
+
+## Start
+
+To execute the Calender app on node.js you have to be in your Calender directory and execute the following line.
+
+```
+node server.js
+```
+
+Type in your browser's address bar **http://localhost:3000** to see the website.
