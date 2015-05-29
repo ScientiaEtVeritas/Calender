@@ -1,0 +1,89 @@
+body {
+	background-color: #99CCFF;
+
+}
+body,html {
+	height: 100%;
+}
+#menudiv, #tablediv {
+	box-shadow: 5px 5px 5px #888888;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+#menudiv {
+	position: fixed;
+	height: 10%;
+	width: 95%;
+	left: 2.5%;
+	top: 0;
+}
+btn {
+	color:red;
+}
+h2 {
+	color: green;
+	text-align: center;
+}
+#monatJahrHeader, #naechsterMonat, #wochenAnsicht {
+	display: inline;
+}
+label {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+}
+#vorigerMonat,#naechsterMonat, #wochenAnsicht {
+	top: 25%;
+	height: 50%;
+}
+#vorigerMonat {
+	position: absolute;
+	left: 2%;
+	
+}
+#naechsterMonat {
+	position: relative;
+	left: 15%;
+}
+
+#tablediv {
+	position: relative;
+	height: 85%;
+	width: 95%;
+	left: 2.5%;
+	top: 12%;
+	
+}
+#wochenAnsicht {
+	position: relative;
+	left: 20%;
+}
+
+#weekTable {
+	position: absolute;
+	top: 5%;
+	width: 90%;
+	height: 90%;
+	left: 5%;
+	visibility: hidden;
+}
+#weekTable td {
+	width: 12%;
+    height: 90%;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+#monthTable {
+	position: absolute;
+	width: 90%;
+	height: 90%;
+	top: 5%;
+	left: 5%;
+	
+}
+#monthTable td {
+    width: 12%;
+    height: 15%;
+    border: 1px solid grey;
+    text-align: center;
+}
