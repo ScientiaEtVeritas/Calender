@@ -18,4 +18,10 @@ To execute the Calender app on node.js you have to be in your Calender directory
 node server.js
 ```
 
+or
+
+```
+npm start
+```
+
 Type in your browser's address bar **http://localhost:3000** to see the website.
