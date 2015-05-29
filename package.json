@@ -1,0 +1,24 @@
+{
+  "name": "calender",
+  "version": "0.0.1",
+  "description": "calender app",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.12.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScientiaEtVeritas/Calender.git"
+  },
+  "author": "TINF14B2 project team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ScientiaEtVeritas/Calender/issues"
+  },
+  "homepage": "https://github.com/ScientiaEtVeritas/Calender#readme"
+}
