@@ -1,89 +1,121 @@
-body {
-	background-color: #99CCFF;
-
-}
 body,html {
-	height: 100%;
+	font-family: "Roboto Condensed", sans-serif;
+	height:100vh;
+	width:100vw;
+	padding:0;
+	margin:0;
 }
+
 #menudiv, #tablediv {
-	box-shadow: 5px 5px 5px #888888;
-	background-color: rgba(255, 255, 255, 0.9);
 }
 #menudiv {
-	position: fixed;
-	height: 10%;
-	width: 95%;
-	left: 2.5%;
-	top: 0;
-}
-btn {
-	color:red;
+	position: relative;
+	height: 12vh;
+	width: 100vw;
+	background-color:#000000;
 }
 h2 {
-	color: green;
+	color: lightskyblue;
 	text-align: center;
 }
-#monatJahrHeader, #naechsterMonat, #wochenAnsicht {
+#header, #next, #wochenAnsicht {
 	display: inline;
 }
-label {
-	position: absolute;
-	width: 100%;
-	text-align: center;
+#prev,#next, #wochenAnsicht {
 }
-#vorigerMonat,#naechsterMonat, #wochenAnsicht {
-	top: 25%;
-	height: 50%;
+#prev {
+
 }
-#vorigerMonat {
-	position: absolute;
-	left: 2%;
-	
-}
-#naechsterMonat {
-	position: relative;
-	left: 15%;
+#next {
 }
 
 #tablediv {
+	height: 80vh;
+	width: 100vw;
 	position: relative;
-	height: 85%;
-	width: 95%;
-	left: 2.5%;
-	top: 12%;
-	
 }
 #wochenAnsicht {
-	position: relative;
-	left: 20%;
 }
 
 #weekTable {
-	position: absolute;
-	top: 5%;
-	width: 90%;
-	height: 90%;
-	left: 5%;
-	visibility: hidden;
-}
-#weekTable td {
-	width: 12%;
-    height: 90%;
-    border: 1px solid grey;
-    text-align: center;
+	display:none;
 }
 
-#monthTable {
-	position: absolute;
-	width: 90%;
-	height: 90%;
-	top: 5%;
-	left: 5%;
-	
+#monthTable,
+#weekTable{
+	width: 75vw;
+	height: 70vh;
 }
-#monthTable td {
-    width: 12%;
-    height: 15%;
-    border: 1px solid grey;
+#monthTable div div,
+#weekTable div div {
+    width: 10vw;
+    height: 11vh;
     text-align: center;
+	display:inline-block;
+	position: relative;
+}
+
+.new {
+	background-color: rgba(217, 217, 217, 0.6);
+}
+
+.reset {
+	background-color: rgba(217, 217, 217, 0);
+}
+
+.today {
+	background-color: #ff5454;
+}
+
+.center,
+#weekTable div div span,
+#monthTable div div span {
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+#days_of_week,
+#days_of_week div {
+	height:60vh !important;
+}
+
+#next {
+	position: absolute;
+	font-size:4.5vw;
+	top:50%;
+	right:10vw;
+	transform: translateY(-50%);
+	text-align: center;
+	cursor: pointer;
+	color:#000;
+}
+
+#prev {
+	position: absolute;
+	font-size:4.5vw;
+	top:50%;
+	left:10vw;
+	transform: translateY(-50%);
+	text-align: center;
+	cursor: pointer;
+	color:#000;
+}
+
+.weekdays_header {
+	background-color:lightskyblue;
+}
+
+#change {
+	position: absolute;
+	right:2vw;
+	background-color:lightskyblue;
+	color:#000;
+	transform: translateY(-50%);
+	top:50%;
+	padding:1vw;
+	border:0.3vh solid #fff;
+	cursor: pointer;
 }
