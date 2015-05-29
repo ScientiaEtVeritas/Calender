@@ -96,7 +96,13 @@ $(document).ready(function() {
 	}
 
 	function setStyle($element, styleClass) {
-		$element.removeClass().addClass(styleClass);
+		if($element.attr('id').replace('cal-', '') % 7 == 0 || ($element.attr('id').replace('cal-', '') % (6+Math.floor($element.attr('id').replace('cal-', '')/7)*7)) == 0) {
+			$element.removeClass();
+			if(styleClass == "new") $element.addClass('dark_weekend');
+			else $element.addClass('weekend');
+		} else {
+			$element.removeClass().addClass(styleClass);
+		}
 	}
 
 	function changeView() {

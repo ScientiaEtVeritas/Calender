@@ -23,10 +23,12 @@ h2 {
 }
 #prev,#next, #wochenAnsicht {
 }
-#prev {
-
+#prev, #next {
+	opacity: 0.65;
 }
-#next {
+
+#prev:hover, #next:hover {
+	opacity:1;
 }
 
 #tablediv {
@@ -53,10 +55,11 @@ h2 {
     text-align: center;
 	display:inline-block;
 	position: relative;
+	margin-right:0.2vw;
 }
 
 .new {
-	background-color: rgba(217, 217, 217, 0.6);
+	background-color: rgba(217, 217, 217, 0.75);
 }
 
 .reset {
@@ -64,7 +67,35 @@ h2 {
 }
 
 .today {
-	background-color: #ff5454;
+	background-color: rgba(255, 84, 84, 0.75);
+}
+
+.weekend {
+	background-color: rgba(255, 250, 175, 0.65);
+}
+
+.weekend:hover {
+	background-color: rgba(255, 250, 175, 1);
+}
+
+.dark_weekend {
+	background-color: rgba(215, 215, 140, 0.75);
+}
+
+.dark_weekend:hover {
+	background-color: rgba(215, 215, 140, 1);
+}
+
+.new:hover {
+	background-color: rgba(217, 217, 217, 1);
+}
+
+.reset:hover {
+	background-color: rgba(217, 217, 217, 0.4);
+}
+
+.today:hover {
+	background-color: rgba(255, 84, 84, 1);
 }
 
 .center,
