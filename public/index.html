@@ -7,17 +7,62 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script language="javascript" type="text/javascript" src="js/calTest.js"></script>
-    </head>
+
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId      : '1648643015359692',
+					xfbml      : true,
+					version    : 'v2.3'
+				});
+			};
+
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+			$(document).ready(function() {
+				$('#login').click(function() {
+					FB.login(function(response){
+						if (response.status === 'connected') {
+							FB.api('/me', function(response) {
+								console.log(JSON.stringify(response));
+								$('#loginarea').fadeOut(300, function() {
+									$('main').fadeIn(300);
+								});
+							});
+						} else if (response.status === 'not_authorized') {
+						} else {
+						}
+
+					});
+				});
+			});
+
+		</script>
+
+
+	</head>
     <body>
-        <div id="menudiv">
-            <div class="center"><h2 id="header">Monat, Jahr</h2></div>
-            <div id="change"><span class="btn" id="changeText">Wochenansicht</span></div>
-        </div>
-        <div id="tablediv">
-            <div id="monthTable" class="center"></div>
-            <div id="prev"><span class="btn" id="prevText"><i class="fa fa-angle-double-left"></i></span></div>
-            <div id="next"><span class="btn" id="nextText"><i class="fa fa-angle-double-right"></i></span></div>
-            <div id="weekTable" class="center"></div>
-        </div>
+	<div id="loginarea" class="center">
+		Please login with Facebook
+		<div id="login"><i class="fa fa-facebook"></i> Login</div>
+	</div>
+		<main>
+			<div id="menudiv">
+					<div class="center"><h2 id="header">Monat, Jahr</h2></div>
+					<div id="change"><span class="btn" id="changeText">Wochenansicht</span></div>
+				</div>
+				<div id="tablediv">
+					<div id="monthTable" class="center"></div>
+					<div id="prev"><span class="btn" id="prevText"><i class="fa fa-angle-double-left"></i></span></div>
+					<div id="next"><span class="btn" id="nextText"><i class="fa fa-angle-double-right"></i></span></div>
+					<div id="weekTable" class="center"></div>
+				</div>
+		</main>
     </body>
 </html>

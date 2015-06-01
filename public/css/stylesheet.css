@@ -150,3 +150,20 @@ h2 {
 	border:0.3vh solid #fff;
 	cursor: pointer;
 }
+
+main {
+	display:none;
+}
+
+#loginarea {
+	font-size:8vh;
+	text-align:center;
+}
+
+#login {
+	background-color:lightblue;
+	font-size:5vh;
+	padding:1vh;
+	margin-top:1vh;
+	cursor: pointer;
+}
