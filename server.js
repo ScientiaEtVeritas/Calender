@@ -1,14 +1,15 @@
 var express = require('express');
 var app = express();
 var config = {};
-config.port = 63242;
+config.port = process.argv[2] || 63242;
 
 app.use(express.static('public'));
 
-var server = app.listen(63242, function () {
+var server = app.listen(config.port, function () {
 
     console.log("\n**Server started**");
     console.log("\n************************************");
+    console.log("File located in: " + process.argv[1]);
     console.log("Port: " + config.port);
     console.log("************************************");
 

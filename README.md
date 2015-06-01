@@ -15,7 +15,7 @@ npm install
 To execute the Calender app on node.js you have to be in your Calender directory and execute the following line.
 
 ```
-node server.js
+node server.js <port>
 ```
 
 or
@@ -24,4 +24,5 @@ or
 npm start
 ```
 
-Type in your browser's address bar **http://localhost:63242** to see the website.
+Type in your browser's address bar **http://localhost:<port>** to see the website.
+The port defaults to 63242.
