@@ -31,6 +31,15 @@ $(document).ready(function() {
 	}
 
 	$('#prev').click(loadCalendarWithPrev);
+	$(document).keydown(function(e){
+		if (e.keyCode == 37){
+			loadCalendarWithPrev();
+		} else if (e.keyCode == 39){
+			loadCalendarWithNext();
+		} else if (e.keyCode == 38 || e.keyCode == 40){
+			changeView();
+		} 
+	})
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
 
