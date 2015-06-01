@@ -63,7 +63,7 @@ h2 {
 }
 
 .reset {
-	background-color: rgba(217, 217, 217, 0);
+	background-color: rgba(217, 217, 217, 0.2);
 }
 
 .today {
@@ -110,7 +110,7 @@ h2 {
 
 #days_of_week,
 #days_of_week div {
-	height:60vh !important;
+	height:67.5vh !important;
 }
 
 #next {
