@@ -24,4 +24,4 @@ or
 npm start
 ```
 
-Type in your browser's address bar **http://localhost:3000** to see the website.
+Type in your browser's address bar **http://localhost:63242** to see the website.
