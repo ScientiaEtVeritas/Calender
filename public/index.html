@@ -9,11 +9,16 @@
         <script language="javascript" type="text/javascript" src="js/calTest.js"></script>
 
 		<script>
+
 			window.fbAsyncInit = function() {
 				FB.init({
 					appId      : '1648643015359692',
 					xfbml      : true,
 					version    : 'v2.3'
+				});
+
+				FB.getLoginStatus(function(response) {
+					statusChangeCallback(response);
 				});
 			};
 
@@ -25,20 +30,23 @@
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 
+			function statusChangeCallback(response) {
+				if (response.status === 'connected') {
+					FB.api('/me', function(response) {
+						console.log(JSON.stringify(response));
+						$('#loginarea').fadeOut(300, function() {
+							$('main').fadeIn(300);
+						});
+					});
+				} else if (response.status === 'not_authorized') {
+				} else {
+				}
+			}
+
 			$(document).ready(function() {
 				$('#login').click(function() {
 					FB.login(function(response){
-						if (response.status === 'connected') {
-							FB.api('/me', function(response) {
-								console.log(JSON.stringify(response));
-								$('#loginarea').fadeOut(300, function() {
-									$('main').fadeIn(300);
-								});
-							});
-						} else if (response.status === 'not_authorized') {
-						} else {
-						}
-
+						statusChangeCallback(response);
 					});
 				});
 			});
