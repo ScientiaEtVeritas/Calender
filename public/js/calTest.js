@@ -56,7 +56,7 @@ $(document).ready(function() {
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
 			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span>");
-			setStyle($tid, "new");
+			setStyle($tid, "new",'cal-');
 		}
 
 		var currentMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()+1, 0);
@@ -68,7 +68,7 @@ $(document).ready(function() {
 			var nexDay = z-differenceForWeekday+1;
 			$tid.html("<span>" + (nexDay) + "</span>");
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
-			else setStyle($tid, "reset");
+			else setStyle($tid, "reset", 'cal-');
 		}
 
 		var nextMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()+1, 1);
@@ -77,7 +77,7 @@ $(document).ready(function() {
 			tid = "cal-" + z;
 			$tid = $('#'+tid);
 			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1) + "</span>");
-			setStyle($tid, "new");
+			setStyle($tid, "new", 'cal-');
 			z++;
 		}
 	}
@@ -104,8 +104,8 @@ $(document).ready(function() {
 		}
 	}
 
-	function setStyle($element, styleClass) {
-		if($element.attr('id').replace('cal-', '') % 7 == 0 || ($element.attr('id').replace('cal-', '') % (6+Math.floor($element.attr('id').replace('cal-', '')/7)*7)) == 0) {
+	function setStyle($element, styleClass, format) {
+		if($element.attr('id').replace(format, '') % 7 == 0 || ($element.attr('id').replace(format, '') % (6+Math.floor($element.attr('id').replace(format, '')/7)*7)) == 0) {
 			$element.removeClass();
 			if(styleClass == "new") $element.addClass('dark_weekend');
 			else $element.addClass('weekend');
@@ -140,9 +140,8 @@ $(document).ready(function() {
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
 			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span>");
-			if (weekDays.getMonth() != curDate.getMonth()) setStyle($tid, "new");
-			else if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today");
-			else setStyle($tid, "reset");
+			else if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
+			else setStyle($tid, "reset", 'week-');
 		}
 	}
 });
