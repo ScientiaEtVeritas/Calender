@@ -17,7 +17,9 @@ body,html {
 h2 {
 	color: lightskyblue;
 	text-align: center;
+	font-size:3vh;
 }
+
 #header, #next, #wochenAnsicht {
 	display: inline;
 }
@@ -166,4 +168,8 @@ main {
 	padding:1vh;
 	margin-top:1vh;
 	cursor: pointer;
+}
+
+#kw {
+	font-size:2vh;
 }

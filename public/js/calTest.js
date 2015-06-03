@@ -39,9 +39,14 @@ $(document).ready(function() {
 		} else if (e.keyCode == 38 || e.keyCode == 40){
 			changeView();
 		} 
-	})
+	});
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
+
+	Date.prototype.getWeek = function() {
+		var d = new Date(this.getFullYear(),0,1);
+		return Math.ceil((((this - d) / 86400000) + d.getDay()+1)/7);
+	};
 
 	loadMonthCalendar();
 
@@ -131,7 +136,7 @@ $(document).ready(function() {
 		}
 	}
 	function loadWeekCalendar() {
-		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear());
+		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear() + "<br /><span id='kw'>Kalenderwoche " + dateWithSelectedMonth.getWeek() + "</span>");
 
 		for (var z = 1; z <= 7; z++) {
 			var tid = "week-" + z;
@@ -140,7 +145,7 @@ $(document).ready(function() {
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
 			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span>");
-			else if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
+			if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
 			else setStyle($tid, "reset", 'week-');
 		}
 	}
