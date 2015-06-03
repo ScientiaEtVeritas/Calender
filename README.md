@@ -10,7 +10,22 @@ cd Calender
 npm install
 ```
 
-## Start
+You also need a MangoDB database to connect with.
+
+## Start and Configuration
+
+You can optionally set some env. variables to set the configuration of the connection to MongoDB.
+For Windows see the following lines.
+
+```
+SET db_name=<name>
+SET db_host=<host>
+SET db_port=<port>
+SET db_user=<user>
+SET db_pw=<password>
+```
+
+The default MongoDB-URL is **mongodb://localhost:27017/calender**.
 
 To execute the Calender app on node.js you have to be in your Calender directory and execute the following line. You can optionally set your port.
 
