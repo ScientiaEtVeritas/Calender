@@ -1,15 +1,19 @@
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-	var wochenTage = ["So", "Mo" , "Di", "Mi","Do","Fr","Sa","So"];
+	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
 	var currentView = 0;
 	var curDate = new Date();
 	var dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
 
+	/* jQuery Selectors */
 	var $monthRow = $("<div></div>");
 	var $weekRow = $("<div></div>");
-	$('#monthTable').append($monthRow);
-	$('#weekTable').append($weekRow);
+	var $weekTable = $('#weekTable');
+	var $monthTable = $('#monthTable');
+	$monthTable.append($monthRow);
+	$weekTable.append($weekRow);
+	var $row;
 
 	for(var i = 1; i < wochenTage.length; i++) {
 		$monthRow.append("<div class='weekdays_header'><span>" + wochenTage[i] + "</span></div>");
@@ -17,31 +21,31 @@ $(document).ready(function() {
 	}
 
 	for(var i = 0; i < 6; i++) {
-		var $row = $("<div></div>");
-		$('#monthTable').append($row);
+		$row = $("<div></div>");
+		$monthTable.append($row);
 		for(var j = 1; j <= 7; j++) {
 			$row.append($("<div id='cal-" + ((7*i)+j) + "'></div>"));
 		}
 	}
 
-	var $row = $("<div id='days_of_week'></div>");
-	$('#weekTable').append($row);
+	$row = $("<div id='days_of_week'></div>");
+	$weekTable.append($row);
 	for(var i = 0; i < 7; i++) {
 		$row.append("<div id='week-"+ (i+1) +"'></div>");
 	}
 
 	$('#prev').click(loadCalendarWithPrev);
 	$(document).keydown(function(e){
-		if (e.keyCode == 37){
-			loadCalendarWithPrev();
-		} else if (e.keyCode == 39){
-			loadCalendarWithNext();
-		} else if (e.keyCode == 38 || e.keyCode == 40){
-			changeView();
-		} 
+		if (e.keyCode == 37) loadCalendarWithPrev();
+		else if (e.keyCode == 39) loadCalendarWithNext();
+		else if (e.keyCode == 38 || e.keyCode == 40) changeView()
 	});
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
+	$('#today').click(function() {
+		dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
+		refresh();
+	});
 
 	Date.prototype.getWeek = function() {
 		var d = new Date(this.getFullYear(),0,1);
@@ -51,9 +55,7 @@ $(document).ready(function() {
 	loadMonthCalendar();
 
 	function loadMonthCalendar() {
-		// load Calendar for month of dateWithSelectedMonth
 		var differenceForWeekday = dateWithSelectedMonth.getDay() || 7;
-		// set H2 for Monat und Jahr anzeige
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear());
 
 		for (var z = 1; z< differenceForWeekday; z++) {
@@ -120,21 +122,27 @@ $(document).ready(function() {
 	}
 
 	function changeView() {
-		if (currentView == 0) {
-			$('#weekTable').fadeIn(300);
-			$('#monthTable').fadeOut(300);
+		if (!currentView) {
+			$weekTable.fadeIn(300);
+			$monthTable.fadeOut(300);
 			currentView = 1;
 			$("#changeText").html("Monatsansicht");
 			loadWeekCalendar();
 		}
-		else if (currentView == 1) {
-			$('#weekTable').fadeOut(300);
-			$('#monthTable').fadeIn(300);
+		else {
+			$weekTable.fadeOut(300);
+			$monthTable.fadeIn(300);
 			currentView = 0;
 			$("#changeText").html("Wochenansicht");
 			loadMonthCalendar();
 		}
 	}
+
+	function refresh() {
+		if(!currentView) loadMonthCalendar();
+		else loadWeekCalendar();
+	}
+
 	function loadWeekCalendar() {
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear() + "<br /><span id='kw'>Kalenderwoche " + dateWithSelectedMonth.getWeek() + "</span>");
 

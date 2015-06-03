@@ -141,9 +141,8 @@ h2 {
 	background-color:lightskyblue;
 }
 
-#change {
+.button {
 	position: absolute;
-	right:2vw;
 	background-color:lightskyblue;
 	color:#000;
 	transform: translateY(-50%);
@@ -151,6 +150,16 @@ h2 {
 	padding:1vw;
 	border:0.3vh solid #fff;
 	cursor: pointer;
+	text-align: center;
+}
+
+#change {
+	width:5vw;
+	right:2vw;
+}
+
+#today {
+	right:10vw;
 }
 
 main {
