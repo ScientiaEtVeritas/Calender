@@ -140,6 +140,7 @@ $(document).ready(function() {
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
 			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span>");
+			if (weekDays.getMonth() != curDate.getMonth()) setStyle($tid, "new", 'week-');
 			else if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
 			else setStyle($tid, "reset", 'week-');
 		}
