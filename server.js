@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var config = {};
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://nagara_mongoadmin:fuddEkbu@localhost:20662/calendar', {auth:{authdb:'admin'}});
+
 config.port = process.argv[2] || 63242;
 
 app.use(express.static('public'));
