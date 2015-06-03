@@ -153,7 +153,12 @@ $(document).ready(function() {
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
 			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span>");
+<<<<<<< HEAD
 			if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
+=======
+			if (weekDays.getMonth() != curDate.getMonth()) setStyle($tid, "new", 'week-');
+			else if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
+>>>>>>> ad05b4efdd8e3544601b1163fe11566a6feecc1c
 			else setStyle($tid, "reset", 'week-');
 		}
 	}
