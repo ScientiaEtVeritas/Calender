@@ -53,10 +53,10 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
     socket.on('login', function(data) {
         socket.facebook = data;
-       socket.facebook || console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
+       socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
     });
 
     socket.on('disconnect', function(){
-        socket.facebook || console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is disconnected***");
+        socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is disconnected***");
     });
 });
