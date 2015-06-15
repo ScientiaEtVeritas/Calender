@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template match="/">
   <html>
-  <head>
-  <link rel="stylesheet" href="stylesheet.css" type="text/css">
-  </head>
-  <body>
-  <h1>Calendar</h1>
-    <table border="1">
-      <tr bgcolor="#9acd32">
-        <th style="text-align:left">Title</th>
-        <th style="text-align:left">Start Datum</th>
-      </tr>
+    <script language="javascript">
+      <![CDATA[var termine = [];]]>
       <xsl:for-each select="calendar/event">
-      <tr>
-        <td><xsl:value-of select="title"/></td>
-        <td><xsl:value-of select="startd"/>.<xsl:value-of select="startm"/>.<xsl:value-of select="starty"/></td>
-      </tr>
+        <![CDATA[arr.push({]]>
+          <![CDATA[title:"]]><xsl:value-of select="title"/><![CDATA[",]]>
+          <![CDATA[startd:]]><xsl:value-of select="startd"/><![CDATA[,]]>
+          <![CDATA[startm:]]><xsl:value-of select="startm"/><![CDATA[,]]>
+          <![CDATA[starty:]]><xsl:value-of select="starty"/>
+        <![CDATA[});]]>
       </xsl:for-each>
-    </table>
-  </body>
+    </script>
   </html>
 </xsl:template>
 </xsl:stylesheet>
