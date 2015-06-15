@@ -37,6 +37,7 @@ var server = app.listen(config.port, function () {
         if(err) {
             console.log("\n************************************");
             console.log("DATABASE ERROR");
+            console.log("Tried to connect with: " + config.db.url);
             console.log("************************************");
             throw err;
         }

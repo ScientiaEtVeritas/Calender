@@ -14,6 +14,12 @@ You also need a MangoDB database to connect with.
 
 ## Start and Configuration
 
+For starting the MongoDB navigate in your Bash to the bin-directory of MongoDB and execute the following line:
+
+```
+mongod
+```
+
 You can optionally set some env. variables to set the configuration of the connection to MongoDB.
 For Windows see the following lines.
 
