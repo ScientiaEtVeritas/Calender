@@ -87,6 +87,8 @@ $(document).ready(function() {
 			setStyle($tid, "new", 'cal-');
 			z++;
 		}
+
+		addAppointment();
 	}
 
 	function loadCalendarWithNext() {
@@ -157,4 +159,27 @@ $(document).ready(function() {
 			else setStyle($tid, "reset", 'week-');
 		}
 	}
+
+	function addAppointment() {
+		var tid = "cal-5";
+		var $tid = $('#'+tid);
+		$tid.append("<div class='appointment'></div>");
+	}
+
+	$(document).on('click', '.appointment', function() {
+		$('#monthTable').addClass('active');
+		$('#dayview').delay(750).fadeIn(300, function() {
+		});
+	});
+
+	$('#dayview_close').click(function() {
+		$('#monthTable').removeClass('active');
+		$('#dayview').fadeOut(300, function() {
+		});
+	});
+
+	$('nav').click(function() {
+		$('#menu').toggleClass('activeMenu');
+		$('#overlay').fadeToggle(250);
+	});
 });
