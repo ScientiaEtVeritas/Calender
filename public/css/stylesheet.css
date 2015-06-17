@@ -1,3 +1,11 @@
+::-moz-selection {
+	background: transparent;
+}
+
+::selection {
+	background: transparent;
+}
+
 body,html {
 	font-family: "Roboto Condensed", sans-serif;
 	height:100vh;
