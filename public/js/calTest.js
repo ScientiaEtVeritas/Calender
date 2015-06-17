@@ -1,4 +1,10 @@
+var appointments = [];
+var termine = [];
 $(document).ready(function() {
+	//doIt();
+});
+
+function doIt() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
@@ -57,11 +63,11 @@ $(document).ready(function() {
 	function loadMonthCalendar() {
 		var differenceForWeekday = dateWithSelectedMonth.getDay() || 7;
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear());
-
 		for (var z = 1; z< differenceForWeekday; z++) {
 			var tid = "cal-" + z;
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
+			//addAppointment(lastMonthLastDay,tid);
 			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span>");
 			setStyle($tid, "new",'cal-');
 		}
@@ -74,6 +80,7 @@ $(document).ready(function() {
 			curMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), differenceForWeekday-z+1);
 			var nexDay = z-differenceForWeekday+1;
 			$tid.html("<span>" + (nexDay) + "</span>");
+			addAppointment(new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay),tid);
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
 			else setStyle($tid, "reset", 'cal-');
 		}
@@ -88,7 +95,7 @@ $(document).ready(function() {
 			z++;
 		}
 
-		addAppointment();
+		//addAppointment();
 	}
 
 	function loadCalendarWithNext() {
@@ -160,11 +167,7 @@ $(document).ready(function() {
 		}
 	}
 
-	function addAppointment() {
-		var tid = "cal-5";
-		var $tid = $('#'+tid);
-		$tid.append("<div class='appointment'></div>");
-	}
+	
 
 	$(document).on('click', '.appointment', function() {
 		$('#monthTable').addClass('active');
@@ -182,4 +185,32 @@ $(document).ready(function() {
 		$('#menu').toggleClass('activeMenu');
 		$('#overlay').fadeToggle(250);
 	});
-});
+	
+}
+
+
+
+function loadAppointments() {
+
+	for (var i=0;i<termine.length;i++) {
+		var appStartDate = new Date(termine[i].starty,termine[i].startm-1,termine[i].startd,termine[i].startts,termine[i].starttm,termine[i].starttse);
+		var appEndDate = new Date(termine[i].endy,termine[i].endm-1,termine[i].endd,termine[i].endts,termine[i].endtm,termine[i].endtse);
+		
+		appointments.push({
+			start:appStartDate,
+        	end:appEndDate
+        });		
+	}
+}
+
+
+function addAppointment(dt,tid) {
+		
+	for (var i = 0;i<appointments.length;i++) {
+		if ((appointments[i].start.getFullYear() == dt.getFullYear() && appointments[i].start.getMonth() == dt.getMonth() && appointments[i].start.getDate() == dt.getDate() ) ||  (appointments[i].end.getFullYear() == dt.getFullYear() && appointments[i].end.getMonth() == dt.getMonth() && appointments[i].end.getDate() == dt.getDate()) ) {
+			var $tid = $('#'+tid);
+			$tid.append("<div class='appointment'></div>");
+		}
+	}		
+}
+

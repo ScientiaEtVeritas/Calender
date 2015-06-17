@@ -54,6 +54,42 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
     socket.on('login', function(data) {
         socket.facebook = data;
+        socket.emit("data", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+"<?xml-stylesheet type=\"text/xsl\" href=\"CalTest.xsl\"?>"+
+"<calendar>"+
+	"<event>"+
+		"<title>Mein Ereignis</title>"+
+		"<place>Karlsruhe</place>"+
+		"<startd>20</startd>"+
+		"<startm>11</startm>"+
+		"<starty>2015</starty>"+
+		"<endd>20</endd>"+
+		"<endm>11</endm>"+
+		"<endy>2015</endy>"+
+		"<startts>10</startts>"+
+		"<starttm>00</starttm>"+
+		"<starttse>00</starttse>"+
+		"<endts>11</endts>"+
+		"<endtm>00</endtm>"+
+		"<endtse>00</endtse>"+
+	"</event>"+
+	"<event>"+
+		"<title>Mein Ereignis</title>"+
+		"<place>Karlsruhe</place>"+
+		"<startd>20</startd>"+
+		"<startm>06</startm>"+
+		"<starty>2015</starty>"+
+		"<endd>20</endd>"+
+		"<endm>06</endm>"+
+		"<endy>2015</endy>"+
+		"<startts>10</startts>"+
+		"<starttm>00</starttm>"+
+		"<starttse>00</starttse>"+
+		"<endts>11</endts>"+
+		"<endtm>00</endtm>"+
+		"<endtse>00</endtse>"+
+	"</event>"+
+"</calendar>");
        socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
     });
 
