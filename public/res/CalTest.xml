@@ -9,8 +9,11 @@
 		<endd>20</endd>
 		<endm>11</endm>
 		<endy>2015</endy>
-		<startt>10:00:00</startt>
-		<endt>11:00:00</endt>
-		<allday>yes</allday>
+		<startts>10</startts>
+		<starttm>00</starttm>
+		<starttse>00</starttse>
+		<endts>11</endts>
+		<endtm>00</endtm>
+		<endtse>00</endtse>
 	</event>
 </calendar>

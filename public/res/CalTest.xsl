@@ -3,8 +3,6 @@
 
 <xsl:template match="/">
   <html>
-    <script language="javascript">
-      <![CDATA[var termine = [];]]>
       <xsl:for-each select="calendar/event">
         <![CDATA[termine.push({]]>
           <![CDATA[title:"]]><xsl:value-of select="title"/><![CDATA[",]]>
@@ -15,11 +13,16 @@
           <![CDATA[endd:]]><xsl:value-of select="endd"/><![CDATA[,]]>
           <![CDATA[endm:]]><xsl:value-of select="endm"/><![CDATA[,]]>
           <![CDATA[endy:]]><xsl:value-of select="endy"/><![CDATA[,]]>
-          <![CDATA[startt:"]]><xsl:value-of select="startt"/><![CDATA[",]]>
-          <![CDATA[endt:"]]><xsl:value-of select="endt"/><![CDATA["]]>
+          <![CDATA[startts:]]><xsl:value-of select="startts"/><![CDATA[,]]>
+          <![CDATA[starttm:]]><xsl:value-of select="starttm"/><![CDATA[,]]>
+          <![CDATA[starttse:]]><xsl:value-of select="starttse"/><![CDATA[,]]>
+          <![CDATA[endts:]]><xsl:value-of select="endts"/><![CDATA[,]]>
+          <![CDATA[endtm:]]><xsl:value-of select="endtm"/><![CDATA[,]]>
+          <![CDATA[endtse:]]><xsl:value-of select="endtse"/>
         <![CDATA[});]]>
+        <![CDATA[loadAppointments();]]>
+        <![CDATA[doIt();]]>
       </xsl:for-each>
-    </script>
   </html>
 </xsl:template>
 </xsl:stylesheet>
