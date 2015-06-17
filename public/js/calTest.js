@@ -44,10 +44,11 @@ $(document).ready(function() {
 		else if (e.keyCode == 39) loadCalendarWithNext();
 		else if (e.keyCode == 38 || e.keyCode == 40) changeView()
 	});
+
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
 	$('#today').click(function() {
-		dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
+		dateWithSelectedMonth = new Date();
 		refresh();
 	});
 
@@ -62,6 +63,7 @@ Date.prototype.getWeek = function () {
     }  
     return 1 + Math.ceil((firstThursday - target) / 604800000); 
 }  
+
 	loadMonthCalendar();
 
 	function loadMonthCalendar() {
@@ -139,6 +141,7 @@ Date.prototype.getWeek = function () {
 			$monthTable.fadeOut(300);
 			currentView = 1;
 			$("#changeText").html("Monatsansicht");
+			dateWithSelectedMonth = new Date();
 			loadWeekCalendar();
 		} else {
 			$weekTable.fadeOut(300);
