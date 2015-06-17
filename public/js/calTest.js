@@ -1,10 +1,8 @@
 var appointments = [];
 var termine = [];
-$(document).ready(function() {
-	//doIt();
-});
+var refresh;
 
-function doIt() {
+$(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
@@ -95,7 +93,6 @@ function doIt() {
 			z++;
 		}
 
-		//addAppointment();
 	}
 
 	function loadCalendarWithNext() {
@@ -137,8 +134,7 @@ function doIt() {
 			currentView = 1;
 			$("#changeText").html("Monatsansicht");
 			loadWeekCalendar();
-		}
-		else {
+		} else {
 			$weekTable.fadeOut(300);
 			$monthTable.fadeIn(300);
 			currentView = 0;
@@ -147,10 +143,10 @@ function doIt() {
 		}
 	}
 
-	function refresh() {
+	refresh = function() {
 		if(!currentView) loadMonthCalendar();
 		else loadWeekCalendar();
-	}
+	};
 
 	function loadWeekCalendar() {
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear() + "<br /><span id='kw'>Kalenderwoche " + dateWithSelectedMonth.getWeek() + "</span>");
@@ -186,9 +182,7 @@ function doIt() {
 		$('#overlay').fadeToggle(250);
 	});
 	
-}
-
-
+});
 
 function loadAppointments() {
 
@@ -213,4 +207,3 @@ function addAppointment(dt,tid) {
 		}
 	}		
 }
-
