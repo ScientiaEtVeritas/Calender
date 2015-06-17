@@ -48,7 +48,11 @@ $(document).ready(function() {
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
 	$('#today').click(function() {
-		dateWithSelectedMonth = new Date();
+		if (currentView == 1) {
+			dateWithSelectedMonth = new Date();
+		} else {
+			dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
+		} 
 		refresh();
 	});
 
@@ -148,6 +152,7 @@ Date.prototype.getWeek = function () {
 			$monthTable.fadeIn(300);
 			currentView = 0;
 			$("#changeText").html("Wochenansicht");
+			dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
 			loadMonthCalendar();
 		}
 	}
@@ -156,6 +161,10 @@ Date.prototype.getWeek = function () {
 		if(!currentView) loadMonthCalendar();
 		else loadWeekCalendar();
 	};
+
+	refreshWeek = function() {
+		loadWeekCalendar();
+	}
 
 	function loadWeekCalendar() {
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear() + "<br /><span id='kw'>Kalenderwoche " + dateWithSelectedMonth.getWeek() + "</span>");
