@@ -55,9 +55,11 @@ h2 {
 }
 
 #monthTable,
-#weekTable{
+#weekTable,
+#dayview {
+	margin-top:4vh;
 	width: 75vw;
-	height: 70vh;
+	height: 80vh;
 	overflow:hidden;
 }
 
@@ -88,12 +90,6 @@ h2 {
 	font-size:4vh;
 	color:#333;
 	cursor: pointer;
-}
-
-#monthTable,
-#dayview {
-	margin-top:4vh;
-	height:80vh;
 }
 
 #monthTable div div,
