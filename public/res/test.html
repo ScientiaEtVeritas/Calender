@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Meine GPS Daten</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="xsltjs/xslt.js"></script>
+  <script id="transformResult"></script>
+</head>
+
+<body>
+
+
+
+
+
+<script type="text/javascript">
+window.onload = function() {
+    new Transformation().setXml("CalTest.xml")
+        .setXslt("CalTest.xsl").transform("transformResult");
+}
+</script>
+
+</body>
+
+</html>
+
+
+  
