@@ -51,11 +51,17 @@ $(document).ready(function() {
 		refresh();
 	});
 
-	Date.prototype.getWeek = function() {
-		var d = new Date(this.getFullYear(),0,1);
-		return Math.ceil((((this - d) / 86400000) + d.getDay()+1)/7);
-	};
-
+Date.prototype.getWeek = function () {   
+    var target  = new Date(this.valueOf());  
+    var dayNr   = (this.getDay() + 6) % 7;   
+    target.setDate(target.getDate() - dayNr + 3);   
+    var firstThursday = target.valueOf();   
+    target.setMonth(0, 1);  
+    if (target.getDay() != 4) {  
+        target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);  
+    }  
+    return 1 + Math.ceil((firstThursday - target) / 604800000); 
+}  
 	loadMonthCalendar();
 
 	function loadMonthCalendar() {
