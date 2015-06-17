@@ -207,7 +207,9 @@ function loadAppointments() {
 function addAppointment(dt,tid) {
 		
 	for (var i = 0;i<appointments.length;i++) {
-		if ((appointments[i].start.getFullYear() == dt.getFullYear() && appointments[i].start.getMonth() == dt.getMonth() && appointments[i].start.getDate() == dt.getDate() ) ||  (appointments[i].end.getFullYear() == dt.getFullYear() && appointments[i].end.getMonth() == dt.getMonth() && appointments[i].end.getDate() == dt.getDate()) ) {
+		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
+		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
+		if (compDateS<=dt && compDateE>=dt) {
 			var $tid = $('#'+tid);
 			$tid.append("<div class='appointment'></div>");
 		}
