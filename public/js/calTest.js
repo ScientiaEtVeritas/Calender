@@ -78,7 +78,7 @@ Date.prototype.getWeek = function () {
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
 			//addAppointment(lastMonthLastDay,tid);
-			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span>");
+			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div>");
 			setStyle($tid, "new",'cal-');
 		}
 
@@ -89,7 +89,7 @@ Date.prototype.getWeek = function () {
 			$tid = $('#'+tid);
 			curMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), differenceForWeekday-z+1);
 			var nexDay = z-differenceForWeekday+1;
-			$tid.html("<span>" + (nexDay) + "</span>");
+			$tid.html("<span>" + (nexDay)  + "</span><div class='appointments'></div>");
 			addAppointment(new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay),tid);
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
 			else setStyle($tid, "reset", 'cal-');
@@ -100,7 +100,7 @@ Date.prototype.getWeek = function () {
 		while (z<=42) {
 			tid = "cal-" + z;
 			$tid = $('#'+tid);
-			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1) + "</span>");
+			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div>");
 			setStyle($tid, "new", 'cal-');
 			z++;
 		}
@@ -222,8 +222,8 @@ function addAppointment(dt,tid) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
-			var $tid = $('#'+tid);
-			$tid.append("<div class='appointment'></div>");
+			var $tid = $('#'+tid + ' .appointments');
+			$tid.append("<div class='appointment'><span class='time'>18:00</span>" + "Test" +  "</div>");
 		}
 	}		
 }
