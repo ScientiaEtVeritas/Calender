@@ -12,6 +12,7 @@ body,html {
 	width:100vw;
 	padding:0;
 	margin:0;
+    font-size:2vh;
 }
 
 #menudiv, #tablediv {
@@ -150,7 +151,15 @@ h2 {
 	background-color: rgba(255, 84, 84, 1);
 }
 
-.center,
+
+.center {
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    text-align: center;
+}
+
 #weekTable div div span,
 #monthTable div div span {
 	position: absolute;
@@ -210,12 +219,12 @@ h2 {
 }
 
 #change {
-	width:5vw;
+	width:5.5vw;
 	right:2vw;
 }
 
 #today {
-	right:10vw;
+	right:10.5vw;
 }
 
 main {
@@ -241,25 +250,25 @@ main {
 
 .appointments {
 	width:100% !important;
-	height:60% !important;
+	height:70% !important;
 	position:absolute !important;
 	bottom:0 !important;
 	left:0;
 	transition:all 0.3s ease-in-out;
-	cursor: pointer !important;
 }
 
 .appointment {
 	position: relative;
-	height:2vh !important;
-	font-size:1.5vh !important;
+	height:2.5vh !important;
+	font-size:1.8vh !important;
 	width:100%;
-	background-color:rgba(0,0,0,0.4);
+	background-color:rgba(0,0,0,0.1);
 	color:#333;
 	margin-top:0.5vh;
 	text-align:right !important;
 	padding-right:1vh;
 	box-sizing: border-box;
+    cursor: pointer !important;
 }
 
 .appointment .time {
