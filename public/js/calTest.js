@@ -1,10 +1,8 @@
 var appointments = [];
 var termine = [];
-$(document).ready(function() {
-	//doIt();
-});
+var refresh;
 
-function doIt() {
+$(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
@@ -46,17 +44,29 @@ function doIt() {
 		else if (e.keyCode == 39) loadCalendarWithNext();
 		else if (e.keyCode == 38 || e.keyCode == 40) changeView()
 	});
+
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
 	$('#today').click(function() {
-		dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
+		if (currentView == 1) {
+			dateWithSelectedMonth = new Date();
+		} else {
+			dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
+		} 
 		refresh();
 	});
 
-	Date.prototype.getWeek = function() {
-		var d = new Date(this.getFullYear(),0,1);
-		return Math.ceil((((this - d) / 86400000) + d.getDay()+1)/7);
-	};
+Date.prototype.getWeek = function () {   
+    var target  = new Date(this.valueOf());  
+    var dayNr   = (this.getDay() + 6) % 7;   
+    target.setDate(target.getDate() - dayNr + 3);   
+    var firstThursday = target.valueOf();   
+    target.setMonth(0, 1);  
+    if (target.getDay() != 4) {  
+        target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);  
+    }  
+    return 1 + Math.ceil((firstThursday - target) / 604800000); 
+}  
 
 	loadMonthCalendar();
 
@@ -95,7 +105,6 @@ function doIt() {
 			z++;
 		}
 
-		//addAppointment();
 	}
 
 	function loadCalendarWithNext() {
@@ -136,20 +145,25 @@ function doIt() {
 			$monthTable.fadeOut(300);
 			currentView = 1;
 			$("#changeText").html("Monatsansicht");
+			dateWithSelectedMonth = new Date();
 			loadWeekCalendar();
-		}
-		else {
+		} else {
 			$weekTable.fadeOut(300);
 			$monthTable.fadeIn(300);
 			currentView = 0;
 			$("#changeText").html("Wochenansicht");
+			dateWithSelectedMonth = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
 			loadMonthCalendar();
 		}
 	}
 
-	function refresh() {
+	refresh = function() {
 		if(!currentView) loadMonthCalendar();
 		else loadWeekCalendar();
+	};
+
+	refreshWeek = function() {
+		loadWeekCalendar();
 	}
 
 	function loadWeekCalendar() {
@@ -186,9 +200,7 @@ function doIt() {
 		$('#overlay').fadeToggle(250);
 	});
 	
-}
-
-
+});
 
 function loadAppointments() {
 
@@ -207,10 +219,11 @@ function loadAppointments() {
 function addAppointment(dt,tid) {
 		
 	for (var i = 0;i<appointments.length;i++) {
-		if ((appointments[i].start.getFullYear() == dt.getFullYear() && appointments[i].start.getMonth() == dt.getMonth() && appointments[i].start.getDate() == dt.getDate() ) ||  (appointments[i].end.getFullYear() == dt.getFullYear() && appointments[i].end.getMonth() == dt.getMonth() && appointments[i].end.getDate() == dt.getDate()) ) {
+		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
+		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
+		if (compDateS<=dt && compDateE>=dt) {
 			var $tid = $('#'+tid);
 			$tid.append("<div class='appointment'></div>");
 		}
 	}		
 }
-

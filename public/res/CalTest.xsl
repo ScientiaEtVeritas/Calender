@@ -21,7 +21,7 @@
           <![CDATA[endtse:]]><xsl:value-of select="endtse"/>
         <![CDATA[});]]>
         <![CDATA[loadAppointments();]]>
-        <![CDATA[doIt();]]>
+        <![CDATA[refresh();]]>
       </xsl:for-each>
   </html>
 </xsl:template>

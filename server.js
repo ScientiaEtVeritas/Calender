@@ -79,7 +79,7 @@ io.on('connection', function(socket){
 		"<startd>20</startd>"+
 		"<startm>06</startm>"+
 		"<starty>2015</starty>"+
-		"<endd>20</endd>"+
+		"<endd>22</endd>"+
 		"<endm>06</endm>"+
 		"<endy>2015</endy>"+
 		"<startts>10</startts>"+

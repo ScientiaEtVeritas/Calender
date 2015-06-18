@@ -1,9 +1,17 @@
 ::-moz-selection {
+<<<<<<< HEAD
 	background: transparent;
 }
 
 ::selection {
 	background: transparent;
+=======
+    background-color:transparent;
+}
+
+::selection {
+    background-color:transparent;
+>>>>>>> c4a1751e635de3f6970b97e8c764b5dc20946ce9
 }
 
 body,html {
