@@ -20,9 +20,9 @@
           <![CDATA[endtm:]]><xsl:value-of select="endtm"/><![CDATA[,]]>
           <![CDATA[endtse:]]><xsl:value-of select="endtse"/>
         <![CDATA[});]]>
-        <![CDATA[loadAppointments();]]>
-        <![CDATA[refresh();]]>
       </xsl:for-each>
+      <![CDATA[loadAppointments();]]>
+      <![CDATA[refresh();]]>
   </html>
 </xsl:template>
 </xsl:stylesheet>

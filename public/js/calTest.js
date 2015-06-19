@@ -207,7 +207,6 @@ function loadAppointments() {
 	for (var i=0;i<termine.length;i++) {
 		var appStartDate = new Date(termine[i].starty,termine[i].startm-1,termine[i].startd,termine[i].startts,termine[i].starttm,termine[i].starttse);
 		var appEndDate = new Date(termine[i].endy,termine[i].endm-1,termine[i].endd,termine[i].endts,termine[i].endtm,termine[i].endtse);
-		
 		appointments.push({
 			title:termine[i].title,
 			place:termine[i].place,
