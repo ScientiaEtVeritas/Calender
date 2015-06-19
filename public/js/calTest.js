@@ -230,8 +230,6 @@ function addAppointment(dt,tid) {
 	}		
 }
 
-function timeFormatter(appId) {
-	
-	
-	return appId;
-}
+String.prototype.formatTime = function() {
+	return ("0" + this).slice(-2);
+};
