@@ -231,9 +231,6 @@ function addAppointment(dt,tid) {
 
 String.prototype.formatTime = function() {
 	return ("0" + this).slice(-2);
-<<<<<<< HEAD
-};
-=======
 };
 
 function timeFormatter(compDateS, compDateE, dt, appId) {
@@ -270,5 +267,3 @@ function timeFormatter(compDateS, compDateE, dt, appId) {
 		return  hoursS + ":" + minutesS + " - " + hoursE + ":" + minutesE;
 	} 
 }
-
->>>>>>> a0defdf8ac849e266f3803167e4f2106dff0ed98
