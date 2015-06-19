@@ -205,8 +205,8 @@ Date.prototype.getWeek = function () {
 function loadAppointments() {
 
 	for (var i=0;i<termine.length;i++) {
-		var appStartDate = new Date(termine[i].starty,termine[i].startm-1,termine[i].startd,termine[i].startts,termine[i].starttm,termine[i].starttse);
-		var appEndDate = new Date(termine[i].endy,termine[i].endm-1,termine[i].endd,termine[i].endts,termine[i].endtm,termine[i].endtse);
+		var appStartDate = new Date(termine[i].starty,termine[i].startm-1,termine[i].startd,termine[i].startts,termine[i].starttm);
+		var appEndDate = new Date(termine[i].endy,termine[i].endm-1,termine[i].endd,termine[i].endts,termine[i].endtm);
 		appointments.push({
 			title:termine[i].title,
 			place:termine[i].place,
@@ -218,7 +218,6 @@ function loadAppointments() {
 
 
 function addAppointment(dt,tid) {
-		
 	for (var i = 0;i<appointments.length;i++) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());

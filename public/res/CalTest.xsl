@@ -15,10 +15,8 @@
           <![CDATA[endy:]]><xsl:value-of select="endy"/><![CDATA[,]]>
           <![CDATA[startts:]]><xsl:value-of select="startts"/><![CDATA[,]]>
           <![CDATA[starttm:]]><xsl:value-of select="starttm"/><![CDATA[,]]>
-          <![CDATA[starttse:]]><xsl:value-of select="starttse"/><![CDATA[,]]>
           <![CDATA[endts:]]><xsl:value-of select="endts"/><![CDATA[,]]>
-          <![CDATA[endtm:]]><xsl:value-of select="endtm"/><![CDATA[,]]>
-          <![CDATA[endtse:]]><xsl:value-of select="endtse"/>
+          <![CDATA[endtm:]]><xsl:value-of select="endtm"/>
         <![CDATA[});]]>
       </xsl:for-each>
       <![CDATA[loadAppointments();]]>
