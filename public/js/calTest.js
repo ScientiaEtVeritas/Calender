@@ -79,7 +79,7 @@ Date.prototype.getWeek = function () {
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
 			//addAppointment(lastMonthLastDay,tid);
-			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div>");
+			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new",'cal-');
 		}
 
@@ -90,7 +90,7 @@ Date.prototype.getWeek = function () {
 			$tid = $('#'+tid);
 			curMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), differenceForWeekday-z+1);
 			var nexDay = z-differenceForWeekday+1;
-			$tid.html("<span>" + (nexDay)  + "</span><div class='appointments'></div>");
+			$tid.html("<span>" + (nexDay)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			addAppointment(new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay),tid);
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
 			else setStyle($tid, "reset", 'cal-');
@@ -101,7 +101,7 @@ Date.prototype.getWeek = function () {
 		while (z<=42) {
 			tid = "cal-" + z;
 			$tid = $('#'+tid);
-			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div>");
+			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new", 'cal-');
 			z++;
 		}
@@ -278,7 +278,3 @@ function timeFormatter(compDateS, compDateE, dt, appId) {
 		return  hoursS + ":" + minutesS + " - " + hoursE + ":" + minutesE;
 	} 
 }
-
-
-
-
