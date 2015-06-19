@@ -65,21 +65,21 @@ h2 {
 
 #monthTable,
 #weekTable,
-#dayview {
+#dayview, #appointmentform {
 	margin-top:4vh;
 	width: 75vw;
 	height: 80vh;
 	overflow:hidden;
 }
 
-#dayview {
+#dayview, #appointmentform {
 	position:absolute;
 	background-color:rgba(217, 217, 217, 0.2);
 	width:72vw;
 	display:none;
 }
 
-#day_header {
+#day_header, #form_header {
 	position: absolute;
 	background-color:lightskyblue;
 	height:10vh;
@@ -89,7 +89,7 @@ h2 {
 	left:0;
 }
 
-#dayview_close {
+#dayview_close, #appointment_close {
 	position: absolute;
 	top:50%;
 	right:2vh;
@@ -227,6 +227,10 @@ h2 {
 	right:10.5vw;
 }
 
+#appointment{
+	right:16.0vw;
+}
+
 main {
 	display:none;
 }
@@ -291,7 +295,7 @@ main {
 	z-index:10000;
 }
 
-.active #dayview_back {
+.active #dayview_back{
 	background-color:#fff;
 	transform:translate(50%, -50%) scale(1);
 }

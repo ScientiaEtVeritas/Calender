@@ -45,6 +45,7 @@ $(document).ready(function() {
 		else if (e.keyCode == 38 || e.keyCode == 40) changeView()
 	});
 
+	$('#appointment').click(newAppointment);
 	$('#next').click(loadCalendarWithNext);
 	$('#change').click(changeView);
 	$('#today').click(function() {
@@ -181,7 +182,11 @@ Date.prototype.getWeek = function () {
 		}
 	}
 
-	
+	function newAppointment() {
+		$('#monthTable').addClass('active');
+		$('#appointmentform').delay(750).fadeIn(300, function() {
+		});
+	}
 
 	$(document).on('click', '.appointment', function() {
 		$('#monthTable').addClass('active');
@@ -192,6 +197,12 @@ Date.prototype.getWeek = function () {
 	$('#dayview_close').click(function() {
 		$('#monthTable').removeClass('active');
 		$('#dayview').fadeOut(300, function() {
+		});
+	});
+
+	$('#appointment_close').click(function() {
+		$('#monthTable').removeClass('active');
+		$('#appointmentform').fadeOut(300, function() {
 		});
 	});
 
@@ -267,4 +278,7 @@ function timeFormatter(compDateS, compDateE, dt, appId) {
 		return  hoursS + ":" + minutesS + " - " + hoursE + ":" + minutesE;
 	} 
 }
+
+
+
 
