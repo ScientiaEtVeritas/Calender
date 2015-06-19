@@ -209,6 +209,8 @@ function loadAppointments() {
 		var appEndDate = new Date(termine[i].endy,termine[i].endm-1,termine[i].endd,termine[i].endts,termine[i].endtm,termine[i].endtse);
 		
 		appointments.push({
+			title:termine[i].title,
+			place:termine[i].place,
 			start:appStartDate,
         	end:appEndDate
         });		
@@ -223,7 +225,13 @@ function addAppointment(dt,tid) {
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment'><span class='time'>18:00</span>" + "Test" +  "</div>");
+			$tid.append("<div class='appointment'><span class='time'>"+ appointments[i].start.getHours() + ":" + appointments[i].start.getMinutes() + ":" + appointments[i].start.getSeconds() +"</span>" + appointments[i].title +  "</div>");
 		}
 	}		
+}
+
+function timeFormatter(appId) {
+	
+	
+	return appId;
 }
