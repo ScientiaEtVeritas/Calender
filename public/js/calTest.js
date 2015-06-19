@@ -224,7 +224,7 @@ function addAppointment(dt,tid) {
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment'><span class='time'>"+ appointments[i].start.getHours() + ":" + appointments[i].start.getMinutes() + ":" + appointments[i].start.getSeconds() +"</span>" + appointments[i].title +  "</div>");
+			$tid.append("<div class='appointment'><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 		}
 	}		
 }
@@ -232,3 +232,39 @@ function addAppointment(dt,tid) {
 String.prototype.formatTime = function() {
 	return ("0" + this).slice(-2);
 };
+
+function timeFormatter(compDateS, compDateE, dt, appId) {
+
+	if (+compDateS != +compDateE) {
+		if (+dt === +compDateS) {
+			var hours = ""+appointments[appId].start.getHours();
+			var minutes = ""+appointments[appId].start.getMinutes();
+			hours = hours.formatTime();
+			minutes = minutes.formatTime();
+			return  hours + ":" + minutes + " -";
+		}
+		else if (+dt === +compDateE) {
+			var hours = ""+appointments[appId].end.getHours();
+			var minutes = ""+appointments[appId].end.getMinutes();
+			hours = hours.formatTime();
+			minutes = minutes.formatTime();
+			return  "- " + hours+":" + minutes;
+		}
+		else {
+			return "ganztägig";
+		}	
+	}
+	else {
+		var hoursS = ""+appointments[appId].start.getHours();
+		var minutesS = ""+appointments[appId].start.getMinutes();
+		hoursS = hoursS.formatTime();
+		minutesS = minutesS.formatTime();
+		var hoursE = ""+appointments[appId].end.getHours();
+		var minutesE = ""+appointments[appId].end.getMinutes();
+		hoursE = hoursE.formatTime();
+		minutesE = minutesE.formatTime();
+		
+		return  hoursS + ":" + minutesS + " - " + hoursE + ":" + minutesE;
+	} 
+}
+
