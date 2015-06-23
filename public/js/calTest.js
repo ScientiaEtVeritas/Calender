@@ -1,10 +1,12 @@
 var appointments = [];
 var termine = [];
 var refresh;
+var dateMonthArray = [];
 
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
+	var wochenTageFull= ["Sonntag", "Montag" , "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 
 	var currentView = 0;
 	var curDate = new Date();
@@ -104,6 +106,10 @@ Date.prototype.getWeek = function () {
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
 			//addAppointment(lastMonthLastDay,tid);
+			dateMonthArray.push({
+				tid:tid,
+				date:lastMonthLastDay
+			});
 			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new",'cal-');
 		}
@@ -117,6 +123,10 @@ Date.prototype.getWeek = function () {
 			var nexDay = z-differenceForWeekday+1;
 			$tid.html("<span>" + (nexDay)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			addAppointment(new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay),tid);
+			dateMonthArray.push({
+				tid:tid,
+				date:new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay)
+			});
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
 			else setStyle($tid, "reset", 'cal-');
 		}
@@ -128,6 +138,10 @@ Date.prototype.getWeek = function () {
 			$tid = $('#'+tid);
 			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new", 'cal-');
+			dateMonthArray.push({
+				tid:tid,
+				date:new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1))
+			});
 			z++;
 		}
 
@@ -136,6 +150,7 @@ Date.prototype.getWeek = function () {
 	function loadCalendarWithNext() {
 		if (currentView == 0) {
 			dateWithSelectedMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()+1, 1);
+			dateMonthArray = [];
 			loadMonthCalendar();
 		}
 		else if (currentView == 1) {
@@ -147,6 +162,7 @@ Date.prototype.getWeek = function () {
 	function loadCalendarWithPrev() {
 		if (currentView == 0) {
 			dateWithSelectedMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()-1, 1);
+			dateMonthArray = [];
 			loadMonthCalendar();
 		}
 		else if (currentView == 1) {
@@ -213,10 +229,22 @@ Date.prototype.getWeek = function () {
 		});
 	}
 
-	$(document).on('click', '.appointment', function() {
+	$(document).on('click', '.appointment', function(event) {
 		$('#monthTable').addClass('active');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
+		var tid = event.target.id.replace("i","");
+		
+		tid = tid.replace('cal-','');
+		console.log(tid);
+		var tidInt = parseInt(tid);
+		console.log(tidInt);
+		for (var i = 0;i<dateMonthArray.length;i++) {
+			if (parseInt(dateMonthArray[i].tid.replace('cal-','')) == tidInt) {
+				document.getElementById("header_text").innerHTML = wochenTageFull[dateMonthArray[i].date.getDay()] +', ' +dateMonthArray[i].date.getDate() +'.' +(dateMonthArray[i].date.getMonth()+1) +'.' +dateMonthArray[i].date.getFullYear();
+				
+			}
+		}
 	});
 
 	$('#dayview_close').click(function() {
@@ -258,7 +286,7 @@ function addAppointment(dt,tid) {
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment'><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 		}
 	}		
 }
