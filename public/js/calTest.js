@@ -252,7 +252,13 @@ Date.prototype.getWeek = function () {
 		for (var i = 0;i<dateMonthArray.length;i++) {
 			if (parseInt(dateMonthArray[i].tid.replace('cal-','')) == tidInt) {
 				document.getElementById("header_text").innerHTML = wochenTageFull[dateMonthArray[i].date.getDay()] +', ' +dateMonthArray[i].date.getDate() +'.' +(dateMonthArray[i].date.getMonth()+1) +'.' +dateMonthArray[i].date.getFullYear();
-				
+				var datesNeeded = getCorrespondingEvents(dateMonthArray[i].date);
+				console.log(datesNeeded.length);
+				for (var j=0;j<datesNeeded.length;j++) {
+					var nHTML = "<p style='clear:left; top:5vw;'>" + datesNeeded[j].title + " " + datesNeeded[j].place + " " + (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime() + " - " + (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime() + "</p>";
+					document.getElementById("inputarea_dayView").innerHTML += nHTML;
+				}
+				break;
 			}
 		}
 	});
@@ -304,6 +310,19 @@ function addAppointment(dt,tid) {
 String.prototype.formatTime = function() {
 	return ("0" + this).slice(-2);
 };
+
+function getCorrespondingEvents(dt) {
+	var neededAppointments = [];
+	for (var i = 0;i<appointments.length;i++) {
+		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
+		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
+		if (compDateS<=dt && compDateE>=dt) {
+			neededAppointments.push(appointments[i]);
+		}
+	}		
+	console.log(neededAppointments);
+	return neededAppointments;
+}
 
 function timeFormatter(compDateS, compDateE, dt, appId) {
 
