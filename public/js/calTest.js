@@ -254,9 +254,14 @@ Date.prototype.getWeek = function () {
 				document.getElementById("header_text").innerHTML = wochenTageFull[dateMonthArray[i].date.getDay()] +', ' +dateMonthArray[i].date.getDate() +'.' +(dateMonthArray[i].date.getMonth()+1) +'.' +dateMonthArray[i].date.getFullYear();
 				var datesNeeded = getCorrespondingEvents(dateMonthArray[i].date);
 				console.log(datesNeeded.length);
+				var height=5;
 				for (var j=0;j<datesNeeded.length;j++) {
-					var nHTML = "<p style='clear:left; top:5vw;'>" + datesNeeded[j].title + " " + datesNeeded[j].place + " " + (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime() + " - " + (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime() + "</p>";
-					document.getElementById("inputarea_dayView").innerHTML += nHTML;
+					var outerHTML = '<div style="background-color:rgba(0,0,0,0.1);color:#333 ;position: relative;top:'+ height + 'vw;float: left;left: 1vw;width:10vw; clear:left;height:5vw">'
+					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
+					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
+					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
+					height += 0.1;
 				}
 				break;
 			}
