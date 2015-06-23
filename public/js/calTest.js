@@ -38,6 +38,29 @@ $(document).ready(function() {
 		$row.append("<div id='week-"+ (i+1) +"'></div>");
 	}
 
+	$row = $("<div></div>");
+	$("#inputarea").append($row);
+	for (var i = 0; i < 3; i++) {
+		$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
+	}
+	$row.append("<input class='inputfields1' style='clear:left;' id='inp-'" + i + "</input>")
+	for (var i = 4; i < 6; i++) {
+		$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
+	}
+	var j = 0;
+	for (var i = 6; i<8; i++){
+	$row.append("<input class='inputfields1' style='clear:left; left:21vw;' id='inp-'" + (i+j) + "</input>")
+	$row.append("<input class='inputfields1' style='left:20.8vw;' id='inp-'" + (i+1+j) + "</input>")
+	j++;
+	}
+
+	$row.append('<div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn" id="todayText">Termin Speichern</span></div>')
+
+	$('#saveapp').click(function(){
+		$('#monthTable').removeClass('active');
+		$('#appointmentform').fadeOut(300, function() {
+		});
+	});
 	$('#prev').click(loadCalendarWithPrev);
 	$(document).keydown(function(e){
 		if (e.keyCode == 37) loadCalendarWithPrev();
@@ -56,6 +79,8 @@ $(document).ready(function() {
 		} 
 		refresh();
 	});
+	$('.addApp').click(newAppointment);
+	$(document).on('click', '.addApp', newAppointment);
 
 Date.prototype.getWeek = function () {   
     var target  = new Date(this.valueOf());  
@@ -210,7 +235,6 @@ Date.prototype.getWeek = function () {
 		$('#menu').toggleClass('activeMenu');
 		$('#overlay').fadeToggle(250);
 	});
-	
 });
 
 function loadAppointments() {
@@ -273,7 +297,7 @@ function timeFormatter(compDateS, compDateE, dt, appId) {
 		var minutesE = ""+appointments[appId].end.getMinutes();
 		hoursE = hoursE.formatTime();
 		minutesE = minutesE.formatTime();
-		
+
 		return  hoursS + ":" + minutesS + " - " + hoursE + ":" + minutesE;
 	} 
 }
