@@ -5,6 +5,7 @@ var refresh;
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
+	var labels = ["Startdatum", "Enddatum","Startzeit","Endzeit"];
 
 	var currentView = 0;
 	var curDate = new Date();
@@ -40,19 +41,28 @@ $(document).ready(function() {
 
 	$row = $("<div></div>");
 	$("#inputarea").append($row);
-	for (var i = 0; i < 3; i++) {
-		$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
-	}
-	$row.append("<input class='inputfields1' style='clear:left;' id='inp-'" + i + "</input>")
-	for (var i = 4; i < 6; i++) {
-		$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
-	}
+	// for (var i = 0; i < 3; i++) {
+	// 	$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
+	// }
+	// $row.append("<input class='inputfields1' style='clear:left;' id='inp-'" + i + "</input>")
+	// for (var i = 4; i < 6; i++) {
+	// 	$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
+	// }
 	var j = 0;
-	for (var i = 6; i<8; i++){
-	$row.append("<input class='inputfields1' style='clear:left; left:21vw;' id='inp-'" + (i+j) + "</input>")
-	$row.append("<input class='inputfields1' style='left:20.8vw;' id='inp-'" + (i+1+j) + "</input>")
+	for (var i = 0; i<2; i++){
+	$row.append("<input class='inputfields1' style='clear:left; left:18vw;' id='inp-'" + (i+j) + "</input>")
+	$row.append("<div class='inputfields1' style='left:19vw;' ><span>"+labels[(i+j)]+"</span></div>")
+	$row.append("<input class='inputfields1' style='left:25vw;' id='inp-'" + (i+1+j) + "</input>")
+	$row.append("<div class='inputfields1' style='left:26vw;' ><span>"+labels[(i+j+1)]+"</span></div>")
 	j++;
 	}
+
+	$row.append('<input type="checkbox" class="inputfields1" style="clear:left; margin-right:10vw" name="zutat" value="sardellen" id="check3">');
+	$row.append("<div class='inputfields1' style='left:0vw;' ><span>t&aumlglich</span></div>")
+	$row.append('<input type="checkbox" class="inputfields1"  style="margin-right:10vw" name="zutat" value="sardellen" id="check3">');
+	$row.append("<div class='inputfields1' style='left:0vw;' ><span>monatlich</span></div>")
+	$row.append('<input type="checkbox" class="inputfields1"  style="margin-right:10vw" name="zutat" value="sardellen" id="check3">');
+	$row.append("<div class='inputfields1' style='left:0vw;' ><span>j&aumlrlich</span></div>")
 
 	$row.append('<div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn" id="todayText">Termin Speichern</span></div>')
 
