@@ -101,10 +101,17 @@ h2 {
 	cursor: pointer;
 }
 
-#monthTable div div,
-#weekTable div div {
+#monthTable div div {
     width: 10vw;
     height: 11vh;
+    text-align: center;
+	display:inline-block;
+	position: relative;
+	margin-right:0.2vw;
+}
+#weekTable div div {
+    width: 10vw;
+    height: 67.5vh;
     text-align: center;
 	display:inline-block;
 	position: relative;
@@ -177,7 +184,7 @@ h2 {
 
 #days_of_week,
 #days_of_week div {
-	height:67.5vh !important;
+	height:67.5vh;
 }
 
 #next {
@@ -204,6 +211,7 @@ h2 {
 
 .weekdays_header {
 	background-color:lightskyblue;
+    height: 11vh !important;
 }
 
 .button {

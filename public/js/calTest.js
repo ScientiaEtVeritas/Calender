@@ -2,6 +2,7 @@ var appointments = [];
 var termine = [];
 var refresh;
 var dateMonthArray = [];
+var dateWeekArray = [];
 
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
@@ -227,7 +228,14 @@ Date.prototype.getWeek = function () {
 			var currentDay = dateWithSelectedMonth.getDay() || 7;
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
-			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span>");
+			dateWeekArray.push({
+				tid:tid,
+				date:weekDays
+			});
+			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span><div class='appointments' style='top:4vh'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
+			addWeekAppointment(weekDays,tid);
+			
+			
 			if (curDate.getDate() == weekDays.getDate() && curDate.getMonth() == weekDays.getMonth() && curDate.getFullYear() == weekDays.getFullYear()) setStyle($tid, "today", 'cal-');
 			else setStyle($tid, "reset", 'week-');
 		}
@@ -306,6 +314,19 @@ function addAppointment(dt,tid) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+		}
+	}		
+}
+
+function addWeekAppointment(dt,tid) {
+	for (var i = 0;i<appointments.length;i++) {
+		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
+		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
+		if (compDateS<=dt && compDateE>=dt) {
+			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 		}
