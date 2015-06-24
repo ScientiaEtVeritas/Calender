@@ -82,3 +82,5 @@ mongod
 - In case of the following error, please install all modules with **npm install**.
 
 ```Error: Cannot find module '<module>'```
+
+Make sure you are running the application on the default port to test the Facebook login. If you don't want to run on that port please change the App-ID of Facebook in the *index.html* to your own application.
