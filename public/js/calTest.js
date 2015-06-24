@@ -1,13 +1,10 @@
 var appointments = [];
 var termine = [];
 var refresh;
-var dateMonthArray = [];
-var dateWeekArray = [];
 
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	var wochenTage = ["So", "Mo" , "Di", "Mi", "Do", "Fr", "Sa", "So"];
-	var labels = ["Startdatum", "Enddatum","Startzeit","Endzeit"];
 	var wochenTageFull= ["Sonntag", "Montag" , "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 
 	var currentView = 0;
@@ -41,33 +38,6 @@ $(document).ready(function() {
 	for(var i = 0; i < 7; i++) {
 		$row.append("<div id='week-"+ (i+1) +"'></div>");
 	}
-
-	$row = $("<div></div>");
-	$("#inputarea").append($row);
-	// for (var i = 0; i < 3; i++) {
-	// 	$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
-	// }
-	// $row.append("<input class='inputfields1' style='clear:left;' id='inp-'" + i + "</input>")
-	// for (var i = 4; i < 6; i++) {
-	// 	$row.append("<input class='inputfields1' id='inp-'" + i + "</input>")
-	// }
-	var j = 0;
-	for (var i = 0; i<2; i++){
-	$row.append("<input class='inputfields1' style='clear:left; left:18vw;' id='inp-'" + (i+j) + "</input>")
-	$row.append("<div class='inputfields1' style='left:19vw;' ><span>"+labels[(i+j)]+"</span></div>")
-	$row.append("<input class='inputfields1' style='left:25vw;' id='inp-'" + (i+1+j) + "</input>")
-	$row.append("<div class='inputfields1' style='left:26vw;' ><span>"+labels[(i+j+1)]+"</span></div>")
-	j++;
-	}
-
-	$row.append('<input type="checkbox" class="inputfields1" style="clear:left; margin-right:10vw" name="zutat" value="sardellen" id="check3">');
-	$row.append("<div class='inputfields1' style='left:0vw;' ><span>t&aumlglich</span></div>")
-	$row.append('<input type="checkbox" class="inputfields1"  style="margin-right:10vw" name="zutat" value="sardellen" id="check3">');
-	$row.append("<div class='inputfields1' style='left:0vw;' ><span>monatlich</span></div>")
-	$row.append('<input type="checkbox" class="inputfields1"  style="margin-right:10vw" name="zutat" value="sardellen" id="check3">');
-	$row.append("<div class='inputfields1' style='left:0vw;' ><span>j&aumlrlich</span></div>")
-
-	$row.append('<div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn" id="todayText">Termin Speichern</span></div>')
 
 	$('#saveapp').click(function(){
 		$('#monthTable').removeClass('active');
@@ -117,10 +87,7 @@ Date.prototype.getWeek = function () {
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
 			//addAppointment(lastMonthLastDay,tid);
-			dateMonthArray.push({
-				tid:tid,
-				date:lastMonthLastDay
-			});
+            $tid.data("date", lastMonthLastDay);
 			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new",'cal-');
 		}
@@ -133,11 +100,9 @@ Date.prototype.getWeek = function () {
 			curMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), differenceForWeekday-z+1);
 			var nexDay = z-differenceForWeekday+1;
 			$tid.html("<span>" + (nexDay)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
-			addAppointment(new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay),tid);
-			dateMonthArray.push({
-				tid:tid,
-				date:new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay)
-			});
+			var newDate = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay);
+            addAppointment(newDate,tid);
+            $tid.data("date", newDate);
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
 			else setStyle($tid, "reset", 'cal-');
 		}
@@ -149,10 +114,7 @@ Date.prototype.getWeek = function () {
 			$tid = $('#'+tid);
 			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new", 'cal-');
-			dateMonthArray.push({
-				tid:tid,
-				date:new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1))
-			});
+            $tid.data("date", new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1)));
 			z++;
 		}
 
@@ -161,7 +123,6 @@ Date.prototype.getWeek = function () {
 	function loadCalendarWithNext() {
 		if (currentView == 0) {
 			dateWithSelectedMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()+1, 1);
-			dateMonthArray = [];
 			loadMonthCalendar();
 		}
 		else if (currentView == 1) {
@@ -173,7 +134,6 @@ Date.prototype.getWeek = function () {
 	function loadCalendarWithPrev() {
 		if (currentView == 0) {
 			dateWithSelectedMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()-1, 1);
-			dateMonthArray = [];
 			loadMonthCalendar();
 		}
 		else if (currentView == 1) {
@@ -215,10 +175,6 @@ Date.prototype.getWeek = function () {
 		else loadWeekCalendar();
 	};
 
-	refreshWeek = function() {
-		loadWeekCalendar();
-	}
-
 	function loadWeekCalendar() {
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear() + "<br /><span id='kw'>Kalenderwoche " + dateWithSelectedMonth.getWeek() + "</span>");
 
@@ -228,10 +184,7 @@ Date.prototype.getWeek = function () {
 			var currentDay = dateWithSelectedMonth.getDay() || 7;
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
-			dateWeekArray.push({
-				tid:tid,
-				date:weekDays
-			});
+			$tid.data("date", weekDays);
 			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span><div class='appointments' style='top:4vh'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			addWeekAppointment(weekDays,tid);
 			
@@ -254,29 +207,9 @@ Date.prototype.getWeek = function () {
 		$('#dayview_close').addClass('month');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
-		var tid = event.target.id.replace("i","");
-		document.getElementById("inputarea_dayView").innerHTML = "";
-		tid = tid.replace('cal-','');
-		console.log(tid);
-		var tidInt = parseInt(tid);
-		console.log(tidInt);
-		for (var i = 0;i<dateMonthArray.length;i++) {
-			if (parseInt(dateMonthArray[i].tid.replace('cal-','')) == tidInt) {
-				document.getElementById("header_text").innerHTML = wochenTageFull[dateMonthArray[i].date.getDay()] +', ' +dateMonthArray[i].date.getDate() +'.' +(dateMonthArray[i].date.getMonth()+1) +'.' +dateMonthArray[i].date.getFullYear();
-				var datesNeeded = getCorrespondingEvents(dateMonthArray[i].date);
-				console.log(datesNeeded.length);
-				var height=5;
-				for (var j=0;j<datesNeeded.length;j++) {
-					var outerHTML = '<div style="background-color:rgba(0,0,0,0.1);color:#333 ;position: relative;top:'+ height + 'vw;float: left;left: 1vw;width:10vw; clear:left;height:5vw">'
-					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
-					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
-					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
-					height += 0.1;
-				}
-				break;
-			}
-		}
+		var $tid = $("#" + event.target.id.replace("i",""));
+		$("#inputarea_dayView").html("");
+        $("#header_text").html($tid.data("date"));
 	});
 	
 	$(document).on('click', '.appointmentweek', function(event) {
@@ -284,30 +217,9 @@ Date.prototype.getWeek = function () {
 		$('#dayview_close').addClass('week');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
-		var tid = event.target.id.replace("i","");
-		document.getElementById("inputarea_dayView").innerHTML = "";
-		tid = tid.replace('week-','');
-		console.log(tid);
-		var tidInt = parseInt(tid);
-		console.log(tidInt);
-		for (var i = 0;i<dateWeekArray.length;i++) {
-			if (parseInt(dateWeekArray[i].tid.replace('week-','')) == tidInt) {
-				document.getElementById("header_text").innerHTML = wochenTageFull[dateWeekArray[i].date.getDay()] +', ' +dateWeekArray[i].date.getDate() +'.' +(dateWeekArray[i].date.getWeek()+1) +'.' +dateWeekArray[i].date.getFullYear();
-				var datesNeeded = getCorrespondingEvents(dateWeekArray[i].date);
-				console.log(datesNeeded.length);
-				var height=5;
-				for (var j=0;j<datesNeeded.length;j++) {
-					var outerHTML = '<div style="background-color:rgba(0,0,0,0.1);color:#333 ;position: relative;top:'+ height + 'vw;float: left;left: 1vw;width:10vw; clear:left;height:5vw">'
-					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getWeek()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
-					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getWeek()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
-					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
-					height += 0.1;
-				}
-				
-				break;
-			}
-		}
+        var $tid = $("#" + event.target.id.replace("i",""));
+		$("#inputarea_dayView").html("");
+        $("#header_text").html($tid.data("date"));
 	});
 	
 	$(document).on('click', '.week', function(event) {

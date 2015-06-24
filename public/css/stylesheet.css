@@ -310,7 +310,7 @@ main {
 	transform: none !important;
 }
 
-#dayview_back {
+.dayview_back {
 	position:absolute;
 	width:200vw;
 	height:200vw;
@@ -323,7 +323,7 @@ main {
 	z-index:10000;
 }
 
-.active #dayview_back{
+.active .dayview_back{
 	background-color:#fff;
 	transform:translate(50%, -50%) scale(1);
 }

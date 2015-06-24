@@ -1,107 +1,138 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <title>Kalender</title>
-      <script id="transformResult"></script>
-      <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		
-		<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script language="javascript" type="text/javascript" src="js/calTest.js"></script>
-		 <script language="javascript" type="text/javascript" src="res/xsltjs/xslt.js"></script>
-		
-		<script>
+<head>
+    <title>Kalender</title>
+    <script id="transformResult"></script>
+    <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-			var socket = io();
+    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/calTest.js"></script>
+    <script language="javascript" type="text/javascript" src="res/xsltjs/xslt.js"></script>
 
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId      : '1648643015359692',
-					xfbml      : true,
-					version    : 'v2.3'
-				});
+    <script>
 
-				FB.getLoginStatus(function(response) {
-					statusChangeCallback(response);
-				});
-			};
+        var socket = io();
 
-			(function(d, s, id){
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/en_US/sdk.js";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1648643015359692',
+                xfbml: true,
+                version: 'v2.3'
+            });
 
-			function statusChangeCallback(response) {
-				if (response.status === 'connected') {
-					FB.api('/me', function(response) {
-						console.log(JSON.stringify(response));
-						socket.emit("login", response);
-						$('#loginarea').fadeOut(300, function() {
-							$('main').fadeIn(300);
-						});
-					});
-				} else if (response.status === 'not_authorized') {
-				} else {
-				}
-			}
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
 
-			$(document).ready(function() {
-				$('#login').click(function() {
-					FB.login(function(response){
-						statusChangeCallback(response);
-					});
-				});
-			});
-		
-		socket.on("data", function(xmlStr){
-		new Transformation().setXml(xmlStr)
-        .setXslt("res/CalTest.xsl").transform("transformResult");
-		});
-		
-		
-		</script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                FB.api('/me', function (response) {
+                    console.log(JSON.stringify(response));
+                    socket.emit("login", response);
+                    $('#loginarea').fadeOut(300, function () {
+                        $('main').fadeIn(300);
+                    });
+                });
+            } else if (response.status === 'not_authorized') {
+            } else {
+            }
+        }
+
+        $(document).ready(function () {
+            $('#login').click(function () {
+                FB.login(function (response) {
+                    statusChangeCallback(response);
+                });
+            });
+        });
+
+        socket.on("data", function (xmlStr) {
+            new Transformation().setXml(xmlStr)
+                    .setXslt("res/CalTest.xsl").transform("transformResult");
+        });
 
 
-	</head>
-    <body>
-	<div id="loginarea" class="center">
-		Please login with Facebook
-		<div id="login"><i class="fa fa-facebook"></i> Login</div>
-	</div>
-		<main>
-			<div id="menudiv">
-					<nav><i class="fa fa-bars"></i></nav>
-					<div class="center"><h2 id="header">Monat, Jahr</h2></div>
-					<div id="appointment" class="button"><span class="btn" id="todayText">Neuer Termin</span></div>
-					<div id="today" class="button"><span class="btn" id="todayText">Heute</span></div>
-					<div id="change" class="button"><span class="btn" id="changeText">Wochenansicht</span></div>
-			</div>
-			<div id="menu"></div>
-			<div id="overlay"></div>
-				<div id="tablediv">
-					<div id="monthTable" class="center">
-						<div id="dayview_back"></div>
-					</div>
-					<div id="prev"><span class="btn" id="prevText"><i class="fa fa-angle-double-left"></i></span></div>
-					<div id="next"><span class="btn" id="nextText"><i class="fa fa-angle-double-right"></i></span></div>
-					<div id="weekTable" class="center">
-						<div id="dayview_back"></div>
-					</div>
-					<div id="dayview" class="center">
-						<div id="day_header"><div class="center" id="header_text">Montag, 15.06.2015</div><div id="dayview_close"><i class="fa fa-minus-square-o"></i></div></div>
-						<div id="inputarea_dayView"></div>
-					</div>
-					<div id="appointmentform" class="center">
-						<div id="form_header"><div class="center">Neuen Termin hinzuf&uuml;gen</div><div id="appointment_close"><i class="fa fa-minus-square-o"></i></div></div>
-						<div id="inputarea"></div>
-					</div>
-					
-				</div>
-		</main>
-    </body>
+    </script>
+
+
+</head>
+<body>
+<div id="loginarea" class="center">
+    Please login with Facebook
+    <div id="login"><i class="fa fa-facebook"></i> Login</div>
+</div>
+<main>
+    <div id="menudiv">
+        <nav><i class="fa fa-bars"></i></nav>
+        <div class="center"><h2 id="header">Monat, Jahr</h2></div>
+        <div id="appointment" class="button"><span class="btn">Neuer Termin</span></div>
+        <div id="today" class="button"><span class="btn" id="todayText">Heute</span></div>
+        <div id="change" class="button"><span class="btn" id="changeText">Wochenansicht</span></div>
+    </div>
+    <div id="menu"></div>
+    <div id="overlay"></div>
+    <div id="tablediv">
+        <div id="monthTable" class="center">
+            <div class="dayview_back"></div>
+        </div>
+        <div id="prev"><span class="btn" id="prevText"><i class="fa fa-angle-double-left"></i></span></div>
+        <div id="next"><span class="btn" id="nextText"><i class="fa fa-angle-double-right"></i></span></div>
+        <div id="weekTable" class="center">
+            <div class="dayview_back"></div>
+        </div>
+        <div id="dayview" class="center">
+            <div id="day_header">
+                <div class="center" id="header_text">Montag, 15.06.2015</div>
+                <div id="dayview_close"><i class="fa fa-minus-square-o"></i></div>
+            </div>
+            <div id="inputarea_dayView"></div>
+        </div>
+        <div id="appointmentform" class="center">
+            <div id="form_header">
+                <div class="center">Neuen Termin hinzuf&uuml;gen</div>
+                <div id="appointment_close"><i class="fa fa-minus-square-o"></i></div>
+            </div>
+            <div id="inputarea">
+                <div><input type="date" class="inputfields" style="clear:left; left:18vw;"/>
+                    <div class="inputfields" style="left:19vw;"><span>Startdatum</span></div>
+                    <input type="date" class="inputfields" style="left:25vw;" />
+                    <div class="inputfields" style="left:26vw;"><span>Enddatum</span></div>
+                    <input placeholder="hh:mm" class="inputfields" style="clear:left; left:18vw;" />
+                    <div class="inputfields" style="left:19vw;"><span>Startzeit</span></div>
+                    <input placeholder="hh:mm" class="inputfields" style="left:25vw;" />
+                    <div class="inputfields" style="left:26vw;"><span>Endzeit</span></div>
+                    <input type="checkbox" class="inputfields" style="clear:left; margin-right:10vw" name="zutat"
+                            value="sardellen">
+
+                    <div class="inputfields" style="left:0vw;"><span>täglich</span></div>
+                    <input type="checkbox" class="inputfields" style="margin-right:10vw" name="zutat" value="sardellen">
+
+                    <div class="inputfields" style="left:0vw;"><span>monatlich</span></div>
+                    <input type="checkbox" class="inputfields" style="margin-right:10vw" name="zutat" value="sardellen">
+
+                    <div class="inputfields" style="left:0vw;"><span>jährlich</span></div>
+                    <div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn">Termin Speichern</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
 </html>
