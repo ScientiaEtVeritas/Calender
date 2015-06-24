@@ -290,6 +290,26 @@ main {
 	transform: none !important;
 }
 
+.appointmentweek {
+	position: relative;
+	height:10vh !important;
+	font-size:1.8vh !important;
+	width:100%;
+	background-color:rgba(0,0,0,0.1);
+	color:#333;
+	margin-top:0.5vh;
+	padding-right:1vh;
+	box-sizing: border-box;
+    cursor: pointer !important;
+}
+
+.appointmentweek .time {
+	position:absolute !important;
+	left:0.5vh !important;
+	top:0 !important;
+	transform: none !important;
+}
+
 #dayview_back {
 	position:absolute;
 	width:200vw;

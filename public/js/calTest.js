@@ -243,16 +243,19 @@ Date.prototype.getWeek = function () {
 
 	function newAppointment() {
 		$('#monthTable').addClass('active');
+		$('#weekTable').addClass('active');
+		
 		$('#appointmentform').delay(750).fadeIn(300, function() {
 		});
 	}
 
 	$(document).on('click', '.appointment', function(event) {
 		$('#monthTable').addClass('active');
+		$('#dayview_close').addClass('month');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
 		var tid = event.target.id.replace("i","");
-		
+		document.getElementById("inputarea_dayView").innerHTML = "";
 		tid = tid.replace('cal-','');
 		console.log(tid);
 		var tidInt = parseInt(tid);
@@ -275,14 +278,52 @@ Date.prototype.getWeek = function () {
 			}
 		}
 	});
+	
+	$(document).on('click', '.appointmentweek', function(event) {
+		$('#weekTable').addClass('active');
+		$('#dayview_close').addClass('week');
+		$('#dayview').delay(750).fadeIn(300, function() {
+		});
+		var tid = event.target.id.replace("i","");
+		document.getElementById("inputarea_dayView").innerHTML = "";
+		tid = tid.replace('week-','');
+		console.log(tid);
+		var tidInt = parseInt(tid);
+		console.log(tidInt);
+		for (var i = 0;i<dateWeekArray.length;i++) {
+			if (parseInt(dateWeekArray[i].tid.replace('week-','')) == tidInt) {
+				document.getElementById("header_text").innerHTML = wochenTageFull[dateWeekArray[i].date.getDay()] +', ' +dateWeekArray[i].date.getDate() +'.' +(dateWeekArray[i].date.getWeek()+1) +'.' +dateWeekArray[i].date.getFullYear();
+				var datesNeeded = getCorrespondingEvents(dateWeekArray[i].date);
+				console.log(datesNeeded.length);
+				var height=5;
+				for (var j=0;j<datesNeeded.length;j++) {
+					var outerHTML = '<div style="background-color:rgba(0,0,0,0.1);color:#333 ;position: relative;top:'+ height + 'vw;float: left;left: 1vw;width:10vw; clear:left;height:5vw">'
+					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getWeek()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
+					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getWeek()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
+					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
+					height += 0.1;
+				}
+				
+				break;
+			}
+		}
+	});
+	
+	$(document).on('click', '.week', function(event) {
+		$('#weekTable').removeClass('active');
+		$('#dayview').fadeOut(300, function() {
+		});
+	});
 
-	$('#dayview_close').click(function() {
+	$(document).on('click', '.month', function(event) {
 		$('#monthTable').removeClass('active');
 		$('#dayview').fadeOut(300, function() {
 		});
 	});
 
 	$('#appointment_close').click(function() {
+		$('#weekTable').removeClass('active');
 		$('#monthTable').removeClass('active');
 		$('#appointmentform').fadeOut(300, function() {
 		});
@@ -328,7 +369,8 @@ function addWeekAppointment(dt,tid) {
 		if (compDateS<=dt && compDateE>=dt) {
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
+			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
 		}
 	}		
 }
