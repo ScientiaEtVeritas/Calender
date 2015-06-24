@@ -10,9 +10,14 @@
 
 ### Functions
 * different views: month view, week view, day view
+* loading different views without reloading the page
+* displaying appointments in all views
+* color highlighting of present day, weekends and outside of the month days
 * login/registration procedure via Facebook
-* addition of appointments depending of user logged in
+* addition of appointments depending of user logged in, on hover effect
 * jump to the present day
+* show calender week
+* keyboard support (shortcuts)
 * data keeping
 
 ## Installation
