@@ -236,7 +236,7 @@ Date.prototype.getWeek = function () {
 					var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">'
 					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
 					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
+					var nHTML = "<p style='clear:left;width:100%;font-size:3vh;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
 					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
 					height += 0.1;
 				}
@@ -266,7 +266,7 @@ Date.prototype.getWeek = function () {
 					var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">'
 					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getWeek()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
 					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getWeek()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
+					var nHTML = "<p style='clear:left;width:100%;font-size:3vh;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
 					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
 					height += 0.1;
 				}
