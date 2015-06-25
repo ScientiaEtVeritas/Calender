@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var config = {};
 var mongoose = require('mongoose');
+var fs = require('fs');
 
 config.port = process.argv[2] || 63242;
 
@@ -48,6 +49,11 @@ var server = app.listen(config.port, function () {
     });
 
 });
+
+fs.readdirSync(__dirname + '/models').forEach(function(filename) {
+        if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+});
+var User = mongoose.model('User');
 
 var io = require('socket.io')(server);
 
@@ -106,10 +112,33 @@ io.on('connection', function(socket){
 		"<endtse>00</endtse>"+
 	"</event>"+
 "</calendar>");
-       socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
-    });
+       	socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
+    
+	User.find({ facebookID : socket.facebook.id }, function (err, docs) {
+		if (err) return console.error(err);
+		if(docs.length == 0) {
+	                console.log('User ' + socket.facebook.name + ' saved...');
+        	        var currentUser = new User();
+                	currentUser.facebookID = socket.facebook.id;
+               	 	currentUser.name = socket.facebook.name;
+                	currentUser.save(function(err, currentUser) {
+                		if (err) return console.error(err);
+			})
+        	} else {
+                	console.log('User ' + socket.facebook.name + ' not saved...');
+        	};
+	});
+
+});
 
     socket.on('disconnect', function(){
         socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is disconnected***");
     });
 });
+
+
+/*User.find().exec(function (err, userlist) {
+       	console.log(userlist);
+});
+
+User.find().remove().exec();*/
