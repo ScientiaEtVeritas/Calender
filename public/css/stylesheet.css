@@ -377,7 +377,7 @@ nav {
 	float:left; 
 	position:relative;
 }
-.inputfields1{
+.inputfields1, .inputfields2, .checkbox, .checklabel{
   position: relative;
   top: 15vh;
   left: 10.5vw;
@@ -388,24 +388,15 @@ nav {
 }
 
 .inputfields2{
-  position: relative;
-  top: 15vh;
-  left: 10.5vw;
-  float: left;
-  margin-top: 5vh;
-  margin-bottom: 0.7vh;
-  padding: 1.25vh;
   width: 10vw;
 }
 
 .checkbox{
-  position: relative;
-  top: 15vh;
-  left: 10.5vw;
-  float: left;
-  margin-top: 5vh;
-  margin-bottom: 0.7vh;
-  padding: 1.25vh;	
   margin-left: 4vw;
   margin-top: 6vw;
+}
+
+.checklabel{
+	left: 0;
+	margin-top: 6vw;
 }
