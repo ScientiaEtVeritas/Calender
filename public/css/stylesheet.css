@@ -5,7 +5,18 @@
 ::selection {
     background-color:transparent;
 }
+.appointmentDetailView {
 
+	background-color:rgba(0,0,0,0.1);
+	color:#333 ;
+	position: relative;
+	float: left;
+	left: 1vw;
+	width:10vw; 
+	clear:left;
+	height:15vh
+
+}
 body,html {
 	font-family: "Roboto Condensed", sans-serif;
 	height:100vh;
@@ -409,3 +420,4 @@ nav {
   margin-left: 4vw;
   margin-top: 6vw;
 }
+
