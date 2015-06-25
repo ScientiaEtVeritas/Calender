@@ -386,3 +386,26 @@ nav {
   margin-bottom: 0.7vh;
   padding: 1.25vh;
 }
+
+.inputfields2{
+  position: relative;
+  top: 15vh;
+  left: 10.5vw;
+  float: left;
+  margin-top: 5vh;
+  margin-bottom: 0.7vh;
+  padding: 1.25vh;
+  width: 10vw;
+}
+
+.checkbox{
+  position: relative;
+  top: 15vh;
+  left: 10.5vw;
+  float: left;
+  margin-top: 5vh;
+  margin-bottom: 0.7vh;
+  padding: 1.25vh;	
+  margin-left: 4vw;
+  margin-top: 6vw;
+}

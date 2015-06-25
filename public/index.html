@@ -11,7 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/calTest.js"></script>
     <script language="javascript" type="text/javascript" src="res/xsltjs/xslt.js"></script>
-
     <script>
 
         var socket = io();
@@ -108,24 +107,24 @@
                 <div id="appointment_close"><i class="fa fa-minus-square-o"></i></div>
             </div>
             <div id="inputarea">
-                <div><input type="date" class="inputfields" style="clear:left; left:18vw;"/>
-                    <div class="inputfields" style="left:19vw;"><span>Startdatum</span></div>
-                    <input type="date" class="inputfields" style="left:25vw;" />
-                    <div class="inputfields" style="left:26vw;"><span>Enddatum</span></div>
-                    <input placeholder="hh:mm" class="inputfields" style="clear:left; left:18vw;" />
-                    <div class="inputfields" style="left:19vw;"><span>Startzeit</span></div>
-                    <input placeholder="hh:mm" class="inputfields" style="left:25vw;" />
-                    <div class="inputfields" style="left:26vw;"><span>Endzeit</span></div>
-                    <input type="checkbox" class="inputfields" style="clear:left; margin-right:10vw" name="zutat"
-                            value="sardellen">
+                <div><input type="date" class="inputfields2" style="clear:left; left:15vw;"/>
+                    <div class="inputfields1" style="left:15vw;"><span>Startdatum</span></div>
+                    <input type="date" class="inputfields2" style="left:25vw;" />
+                    <div class="inputfields1" style="left:26vw;"><span>Enddatum</span></div>
+                    <input placeholder="hh:mm" class="inputfields2" style="clear:left; left:15vw;" />
+                    <div class="inputfields1" style="left:15vw;margin-right: 1.1vw;"><span>Startzeit</span></div>
+                    <input placeholder="hh:mm" class="inputfields2" style="left:25vw;" />
+                    <div class="inputfields1" style="left:26vw;"><span>Endzeit</span></div>
 
-                    <div class="inputfields" style="left:0vw;"><span>täglich</span></div>
-                    <input type="checkbox" class="inputfields" style="margin-right:10vw" name="zutat" value="sardellen">
+                    <input type="checkbox" class="checkbox" style="clear:left; margin-right:10vw">
 
-                    <div class="inputfields" style="left:0vw;"><span>monatlich</span></div>
-                    <input type="checkbox" class="inputfields" style="margin-right:10vw" name="zutat" value="sardellen">
+                    <div class="inputfields1" style="left:0vw; margin-top: 6vw;"><span>t&auml;glich</span></div>
+                    <input type="checkbox" class="checkbox" style="margin-right:10vw" >
 
-                    <div class="inputfields" style="left:0vw;"><span>jährlich</span></div>
+                    <div class="inputfields1" style="left:0vw;margin-top: 6vw;"><span>monatlich</span></div>
+                    <input type="checkbox" class="checkbox" style="margin-right:10vw">
+
+                    <div class="inputfields1" style="left:0vw;margin-top: 6vw;"><span>j&auml;hrlich</span></div>
                     <div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn">Termin Speichern</span>
                     </div>
                 </div>
