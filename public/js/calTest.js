@@ -233,7 +233,7 @@ Date.prototype.getWeek = function () {
 				console.log(datesNeeded.length);
 				var height=5;
 				for (var j=0;j<datesNeeded.length;j++) {
-					var outerHTML = '<div style="background-color:rgba(0,0,0,0.1);color:#333 ;position: relative;top:'+ height + 'vw;float: left;left: 1vw;width:10vw; clear:left;height:5vw">'
+					var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">'
 					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
 					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
 					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
@@ -263,7 +263,7 @@ Date.prototype.getWeek = function () {
 				console.log(datesNeeded.length);
 				var height=5;
 				for (var j=0;j<datesNeeded.length;j++) {
-					var outerHTML = '<div style="background-color:rgba(0,0,0,0.1);color:#333 ;position: relative;top:'+ height + 'vw;float: left;left: 1vw;width:10vw; clear:left;height:5vw">'
+					var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">'
 					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getWeek()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
 					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getWeek()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
 					var nHTML = "<p style='clear:left;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
