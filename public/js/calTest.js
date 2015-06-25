@@ -1,8 +1,6 @@
 var appointments = [];
 var termine = [];
 var refresh;
-var dateMonthArray =[];
-var dateWeekArray = [];
 
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
@@ -89,10 +87,7 @@ Date.prototype.getWeek = function () {
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
 			//addAppointment(lastMonthLastDay,tid);
-			dateMonthArray.push({
-				tid:tid,
-				date:lastMonthLastDay
-			});
+            $tid.data("date", lastMonthLastDay);
 			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new",'cal-');
 		}
@@ -105,11 +100,9 @@ Date.prototype.getWeek = function () {
 			curMonth = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), differenceForWeekday-z+1);
 			var nexDay = z-differenceForWeekday+1;
 			$tid.html("<span>" + (nexDay)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
-			addAppointment(new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay),tid);
-			dateMonthArray.push({
-				tid:tid,
-				date:new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay)
-			});
+			var newDate = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(),nexDay);
+            addAppointment(newDate,tid);
+            $tid.data("date", newDate);
 			if (nexDay == curDate.getDate() && currentMonthLastDay.getMonth() == curDate.getMonth() && curMonth.getFullYear() == curDate.getFullYear()) setStyle($tid, "today");
 			else setStyle($tid, "reset", 'cal-');
 		}
@@ -121,10 +114,7 @@ Date.prototype.getWeek = function () {
 			$tid = $('#'+tid);
 			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			setStyle($tid, "new", 'cal-');
-			dateMonthArray.push({
-				tid:tid,
-				date:new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1))
-			});
+            $tid.data("date", new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1)));
 			z++;
 		}
 
@@ -194,10 +184,7 @@ Date.prototype.getWeek = function () {
 			var currentDay = dateWithSelectedMonth.getDay() || 7;
 			var dateNeeded = dateWithSelectedMonth.getDate() - currentDay + z;
 			var weekDays = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), dateNeeded);
-			dateWeekArray.push({
-				tid:tid,
-				date:weekDays
-			});
+			$tid.data("date", weekDays);
 			$tid.html("<span>" + wochenTage[weekDays.getDay()] + ", " + weekDays.getDate() + ".</span><div class='appointments' style='top:4vh'></div><div class='addApp'><i class='fa fa-plus'></i></div>");
 			addWeekAppointment(weekDays,tid);
 			
@@ -220,60 +207,50 @@ Date.prototype.getWeek = function () {
 		$('#dayview_close').addClass('month');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
-		var tid = event.target.id.replace("i","");
-		document.getElementById("inputarea_dayView").innerHTML = "";
-		tid = tid.replace('cal-','');
-		console.log(tid);
-		var tidInt = parseInt(tid);
-		console.log(tidInt);
-		for (var i = 0;i<dateMonthArray.length;i++) {
-			if (parseInt(dateMonthArray[i].tid.replace('cal-','')) == tidInt) {
-				document.getElementById("header_text").innerHTML = wochenTageFull[dateMonthArray[i].date.getDay()] +', ' +dateMonthArray[i].date.getDate() +'.' +(dateMonthArray[i].date.getMonth()+1) +'.' +dateMonthArray[i].date.getFullYear();
-				var datesNeeded = getCorrespondingEvents(dateMonthArray[i].date);
-				console.log(datesNeeded.length);
-				var height=5;
-				for (var j=0;j<datesNeeded.length;j++) {
-					var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">'
-					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
-					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-					var nHTML = "<p style='clear:left;width:100%;font-size:3vh;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
-					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
-					height += 0.1;
-				}
-				break;
-			}
+		var $tid = $("#" + event.target.id.replace("i",""));
+		$("#inputarea_dayView").html("");
+        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + $tid.data("date").getDate() +'.' +($tid.data("date").getMonth()+1) +'.' +$tid.data("date").getFullYear());
+        var datesNeeded = getCorrespondingEvents($tid.data("date"));
+        var newHTML ='';
+        var height = 5;
+        for (var j=0;j<datesNeeded.length;j++) {
+			var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">';
+			var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
+			var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+			var nHTML = "<p style='width:100%;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
+			newHTML+= outerHTML + nHTML + '</div>';
+			height += 0.1;
 		}
+        console.log(""+newHTML);
+        document.getElementById("inputarea_dayView").innerHTML = newHTML;
+        //$("inputarea_dayView").html();
+        
 	});
+	
 	
 	$(document).on('click', '.appointmentweek', function(event) {
 		$('#weekTable').addClass('active');
 		$('#dayview_close').addClass('week');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
-		var tid = event.target.id.replace("i","");
-		document.getElementById("inputarea_dayView").innerHTML = "";
-		tid = tid.replace('week-','');
-		console.log(tid);
-		var tidInt = parseInt(tid);
-		console.log(tidInt);
-		for (var i = 0;i<dateWeekArray.length;i++) {
-			if (parseInt(dateWeekArray[i].tid.replace('week-','')) == tidInt) {
-				document.getElementById("header_text").innerHTML = wochenTageFull[dateWeekArray[i].date.getDay()] +', ' +dateWeekArray[i].date.getDate() +'.' +(dateWeekArray[i].date.getWeek()+1) +'.' +dateWeekArray[i].date.getFullYear();
-				var datesNeeded = getCorrespondingEvents(dateWeekArray[i].date);
-				console.log(datesNeeded.length);
-				var height=5;
-				for (var j=0;j<datesNeeded.length;j++) {
-					var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">'
-					var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getWeek()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
-					var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getWeek()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-					var nHTML = "<p style='clear:left;width:100%;font-size:3vh;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
-					document.getElementById("inputarea_dayView").innerHTML += outerHTML + nHTML + '</div>';
-					height += 0.1;
-				}
-				
-				break;
-			}
+        var $tid = $("#" + event.target.id.replace("i",""));
+		$("#inputarea_dayView").html("");
+        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + $tid.data("date").getDate() +'.' +($tid.data("date").getMonth()+1) +'.' +$tid.data("date").getFullYear());
+        var datesNeeded = getCorrespondingEvents($tid.data("date"));
+        var newHTML ='';
+        var height = 5;
+        for (var j=0;j<datesNeeded.length;j++) {
+			var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">';
+			var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
+			var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+			var nHTML = "<p style='width:100%;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
+			newHTML+= outerHTML + nHTML + '</div>';
+			height += 0.1;
 		}
+        console.log(""+newHTML);
+        document.getElementById("inputarea_dayView").innerHTML = newHTML;
+        
+        
 	});
 	
 	$(document).on('click', '.week', function(event) {
