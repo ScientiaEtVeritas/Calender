@@ -64,7 +64,7 @@ io.on('connection', function(socket){
 "<?xml-stylesheet type=\"text/xsl\" href=\"CalTest.xsl\"?>"+
 "<calendar>"+
 	"<event>"+
-		"<title>Mein Ereignis</title>"+
+		"<title>Taeglich</title>"+
 		"<place>Karlsruhe</place>"+
 		"<startd>20</startd>"+
 		"<startm>11</startm>"+
@@ -78,6 +78,7 @@ io.on('connection', function(socket){
 		"<endts>11</endts>"+
 		"<endtm>00</endtm>"+
 		"<endtse>00</endtse>"+
+		"<per>1</per>"+
 	"</event>"+
 	"<event>"+
 		"<title>Mein Ereignis</title>"+
@@ -94,9 +95,10 @@ io.on('connection', function(socket){
 		"<endts>11</endts>"+
 		"<endtm>00</endtm>"+
 		"<endtse>00</endtse>"+
+		"<per>0</per>"+
 	"</event>"+
 	"<event>"+
-		"<title>Mein Ereignis 2</title>"+
+		"<title>Monatlich</title>"+
 		"<place>Karlsruhe</place>"+
 		"<startd>22</startd>"+
 		"<startm>06</startm>"+
@@ -110,6 +112,24 @@ io.on('connection', function(socket){
 		"<endts>11</endts>"+
 		"<endtm>00</endtm>"+
 		"<endtse>00</endtse>"+
+		"<per>2</per>"+
+	"</event>"+
+	"<event>"+
+		"<title>Jedes Jahr</title>"+
+		"<place>Karlsruhe</place>"+
+		"<startd>15</startd>"+
+		"<startm>06</startm>"+
+		"<starty>2015</starty>"+
+		"<endd>15</endd>"+
+		"<endm>06</endm>"+
+		"<endy>2015</endy>"+
+		"<startts>10</startts>"+
+		"<starttm>00</starttm>"+
+		"<starttse>00</starttse>"+
+		"<endts>11</endts>"+
+		"<endtm>00</endtm>"+
+		"<endtse>00</endtse>"+
+		"<per>3</per>"+
 	"</event>"+
 "</calendar>");
        	socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");

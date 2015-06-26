@@ -40,10 +40,84 @@ $(document).ready(function() {
 	}
 
 	$('#saveapp').click(function(){
-		$('#monthTable').removeClass('active');
-		$('#appointmentform').fadeOut(300, function() {
-		});
+	
+		var taeglich = document.getElementsByClassName("checkbox")[0];
+		var monatlich = document.getElementsByClassName("checkbox")[1];
+		var jaehrlich = document.getElementsByClassName("checkbox")[2];
+	
+		var start = new Date(document.getElementsByClassName("inputfields2")[0].value);
+		var end = new Date(document.getElementsByClassName("inputfields2")[1].value);
+		
+		if (start.getFullYear() > 1 && end.getFullYear() > 1) {
+			// dates are ok
+			var startHours = parseInt((""+document.getElementsByClassName("inputfields2")[2].value).split(":")[0]);
+			var startMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[2].value).split(":")[1]);
+			var endHours = parseInt((""+document.getElementsByClassName("inputfields2")[3].value).split(":")[0]);
+			var endMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[3].value).split(":")[1])
+			
+			if (startHours >= 0, startMinutes >=0, endHours >= 0, endMinutes >=0) {
+				// dates and time are Okay
+				start.setHours(startHours);
+				start.setMinutes(startMinutes);
+				end.setHours(endHours);
+				end.setMinutes(endMinutes);
+				
+				var per = 0;
+				var save = true;
+				
+				if ((taeglich.checked && monatlich.checked) || (taeglich.checked && jaehrlich.checked) || (monatlich.checked && jaehrlich.checked)) {
+					alert("Bitte nur eine Periodizität auswählen");
+				}
+				else {
+					if (taeglich.checked) {
+						per = 1;
+						console.log("t");
+					}
+					else if (monatlich.checked) {
+						per = 2;
+						console.log("m");
+					}
+					else if (jaehrlich.checked) {
+						per = 3;
+						console.log("j");
+					}
+					if (per > 0) {
+						if (start.getDate() == end.getDate() && start.getMonth() == end.getMonth() && start.getFullYear() == end.getFullYear()) {
+							save = true;
+						}
+						else {
+							alert("Periodizität ist nur möglich, wenn Start- und Endtag gleich sind");
+							save = false;
+						}
+					}
+				// check if start date < than end date
+				if (save==true) {
+					if (start < end) {
+					//valid dates, ready to save!
+					appointments.push({
+						start:start,
+						end:end,
+						title:"Neues Ereig",
+						place:"Mainz",
+						per:per
+					});
+					socket.emit("newAppointment", appointments[(appointments.length-1)]);
+					$('#monthTable').removeClass('active');
+					$('#appointmentform').fadeOut(300, function() {
+					});
+					refresh();
+				}
+				else {
+					alert("Das Startdatum muss vor dem Enddatum sein.");
+				}
+				}
+				
+				
+				}
+			}
+		}
 	});
+	
 	$('#prev').click(loadCalendarWithPrev);
 	$(document).keydown(function(e){
 		if (e.keyCode == 37) loadCalendarWithPrev();
@@ -287,7 +361,8 @@ function loadAppointments() {
 			title:termine[i].title,
 			place:termine[i].place,
 			start:appStartDate,
-        	end:appEndDate
+        	end:appEndDate,
+        	per:termine[i].per
         });		
 	}
 }
@@ -302,6 +377,21 @@ function addAppointment(dt,tid) {
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 		}
+		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+		}
+		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+		}
+		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+		}
 	}		
 }
 
@@ -310,6 +400,24 @@ function addWeekAppointment(dt,tid) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
+			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+		}
+		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
+			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+		}
+		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
+			console.log(tid);
+			var $tid = $('#'+tid + ' .appointments');
+			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
+			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+		}
+		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
@@ -328,6 +436,15 @@ function getCorrespondingEvents(dt) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
+			neededAppointments.push(appointments[i]);
+		}
+		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
+			neededAppointments.push(appointments[i]);
+		}
+		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
+			neededAppointments.push(appointments[i]);
+		}
+		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
 			neededAppointments.push(appointments[i]);
 		}
 	}		
