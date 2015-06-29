@@ -55,7 +55,7 @@ $(document).ready(function() {
 			var endHours = parseInt((""+document.getElementsByClassName("inputfields2")[3].value).split(":")[0]);
 			var endMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[3].value).split(":")[1])
 			
-			if (startHours >= 0, startMinutes >=0, endHours >= 0, endMinutes >=0) {
+			if (startHours >= 0 && startMinutes >=0 && endHours >= 0 && endMinutes >=0) {
 				// dates and time are Okay
 				start.setHours(startHours);
 				start.setMinutes(startMinutes);
@@ -65,21 +65,18 @@ $(document).ready(function() {
 				var per = 0;
 				var save = true;
 				
-				if ((taeglich.checked && monatlich.checked) || (taeglich.checked && jaehrlich.checked) || (monatlich.checked && jaehrlich.checked)) {
+				if ((taeglich.checked + monatlich.checked + jaehrlich.checked) > 1) {
 					alert("Bitte nur eine Periodizität auswählen");
 				}
 				else {
 					if (taeglich.checked) {
 						per = 1;
-						console.log("t");
 					}
 					else if (monatlich.checked) {
 						per = 2;
-						console.log("m");
 					}
 					else if (jaehrlich.checked) {
 						per = 3;
-						console.log("j");
 					}
 					if (per > 0) {
 						if (start.getDate() == end.getDate() && start.getMonth() == end.getMonth() && start.getFullYear() == end.getFullYear()) {
@@ -91,28 +88,26 @@ $(document).ready(function() {
 						}
 					}
 				// check if start date < than end date
-				if (save==true) {
-					if (start < end) {
-					//valid dates, ready to save!
-					appointments.push({
-						start:start,
-						end:end,
-						title:"Neues Ereig",
-						place:"Mainz",
-						per:per
-					});
-					socket.emit("newAppointment", appointments[(appointments.length-1)]);
-					$('#monthTable').removeClass('active');
-					$('#appointmentform').fadeOut(300, function() {
-					});
-					refresh();
+				if (save) {
+                        if (start < end) {
+                        //valid dates, ready to save!
+                        appointments.push({
+                            start:start,
+                            end:end,
+                            title:"Neues Ereignis",
+                            place:"Mainz",
+                            per:per
+                        });
+                        socket.emit("newAppointment", appointments[(appointments.length-1)]);
+                        $('#monthTable').removeClass('active');
+                        $('#appointmentform').fadeOut(300, function() {
+                        });
+                        refresh();
+                    }
+                    else {
+                        alert("Das Startdatum muss vor dem Enddatum sein.");
+                    }
 				}
-				else {
-					alert("Das Startdatum muss vor dem Enddatum sein.");
-				}
-				}
-				
-				
 				}
 			}
 		}
@@ -448,7 +443,6 @@ function getCorrespondingEvents(dt) {
 			neededAppointments.push(appointments[i]);
 		}
 	}		
-	console.log(neededAppointments);
 	return neededAppointments;
 }
 
@@ -467,7 +461,7 @@ function timeFormatter(compDateS, compDateE, dt, appId) {
 			var minutes = ""+appointments[appId].end.getMinutes();
 			hours = hours.formatTime();
 			minutes = minutes.formatTime();
-			return  "- " + hours+":" + minutes;
+			return  "– " + hours+":" + minutes;
 		}
 		else {
 			return "ganztägig";
@@ -483,6 +477,6 @@ function timeFormatter(compDateS, compDateE, dt, appId) {
 		hoursE = hoursE.formatTime();
 		minutesE = minutesE.formatTime();
 
-		return  hoursS + ":" + minutesS + " - " + hoursE + ":" + minutesE;
+		return  hoursS + ":" + minutesS + " – " + hoursE + ":" + minutesE;
 	} 
 }
