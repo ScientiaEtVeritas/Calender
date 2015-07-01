@@ -379,7 +379,7 @@ Date.prototype.getWeek = function () {
 		});
 		var $tid = $("#" + event.target.id.replace("i",""));
 		$("#inputarea_dayView").html("");
-        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + $tid.data("date").getDate() +'.' +($tid.data("date").getMonth()+1) +'.' +$tid.data("date").getFullYear());
+        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + (""+$tid.data("date").getDate()).formatTime() +'.' +("" + ($tid.data("date").getMonth()+1)).formatTime() +'.' +$tid.data("date").getFullYear());
         var datesNeeded = getCorrespondingEvents($tid.data("date"));
         var newHTML ='';
         var height = 5;
@@ -405,7 +405,7 @@ Date.prototype.getWeek = function () {
 		});
         var $tid = $("#" + event.target.id.replace("i",""));
 		$("#inputarea_dayView").html("");
-        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + $tid.data("date").getDate() +'.' +($tid.data("date").getMonth()+1) +'.' +$tid.data("date").getFullYear());
+        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + (""+$tid.data("date").getDate()).formatTime() +'.' +(""+($tid.data("date").getMonth()+1)).formatTime() +'.' +$tid.data("date").getFullYear());
         var datesNeeded = getCorrespondingEvents($tid.data("date"));
         var newHTML ='';
         var height = 5;
