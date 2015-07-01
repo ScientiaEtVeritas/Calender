@@ -14,11 +14,15 @@
 * displaying appointments in all views
 * color highlighting of present day, weekends and outside of the month days
 * login/registration procedure via Facebook
-* addition of appointments depending of user logged in, on hover effect
+* addition of appointments depending of user logged in
+* prefill appointment form
+* simple validation of user input (date, time etc.)
+* periodic appointments (montly, weekly, yearly)
 * jump to the present day
 * show calender week
 * keyboard support (shortcuts)
 * data keeping
+* preperation for a menu
 
 ## Installation
 
