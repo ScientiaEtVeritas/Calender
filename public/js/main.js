@@ -205,6 +205,9 @@ $(document).ready(function() {
 	});
 	
 	$('#prev').click(loadCalendarWithPrev);
+    
+    $('input').keydown(function(e) {e.stopPropagation();});
+
 	$(document).keydown(function(e){
 		if (e.keyCode == 37) loadCalendarWithPrev();
 		else if (e.keyCode == 39) loadCalendarWithNext();

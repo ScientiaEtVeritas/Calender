@@ -388,7 +388,7 @@ nav {
 	float:left; 
 	position:relative;
 }
-.inputfields1, .inputfields2, .checkbox, .checklabel{
+.inputfields1, .inputfields2 {
   position: relative;
   top: 15vh;
   left: 10.5vw;
@@ -399,15 +399,42 @@ nav {
 }
 
 .inputfields2{
-  width: 10vw;
+  width: 13vw;
+    height:5.5vh;
+    font-size:3vh;
+    background-color:rgba(255,255,255,0.8);
+    color:#888;
+    border:lightskyblue;
+    outline: none !important;
+    z-index:1000000;
 }
 
-.checkbox{
-  margin-left: 4vw;
-  margin-top: 6vw;
+.inputfields1 {
+    font-size:3vh;
 }
 
-.checklabel{
-	left: 0;
-	margin-top: 6vw;
+.checkbox, .checklabel {
+    display:inline-block;
+    cursor:pointer;
+    font-size:2.5vh;
+}
+.checklabel:not(:last-of-type) {
+    margin-right:2vw;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox:checked + label:before {
+    background-color:lightskyblue;
+}
+
+.checklabel:before {
+    content:"";
+    display: inline-block;
+    background-color:#fff;
+    height:2vh;
+    width:2vh;
+    border:0.2vh solid lightskyblue;
 }

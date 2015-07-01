@@ -112,27 +112,53 @@
             </div>
             <div id="inputarea">
                 <div>
-                	<input type="text" class="inputfields2" style="clear:left; left:15vw;">
-                	<div class="inputfields1" style="left:15vw;"><span>Titel</span></div>
-                	<input type="text" class="inputfields2" style="left:27.4vw;" />
-                    <div class="inputfields1" style="left:27vw;"><span>Ort</span></div>
-                    <input type="date" class="inputfields2" style="clear:left; left:15vw;"/>
-                    <div class="inputfields1" style="left:15vw;"><span>Startdatum</span></div>
-                    <input type="date" class="inputfields2" style="left:25vw;" />
-                    <div class="inputfields1" style="left:26vw;"><span>Enddatum</span></div>
-                    <input type="time" placeholder="hh:mm" class="inputfields2" style="clear:left; left:15vw;" />
-                    <div class="inputfields1" style="left:15vw;margin-right: 1.1vw;"><span>Startzeit</span></div>
-                    <input type="time" placeholder="hh:mm" class="inputfields2" style="left:25vw;" />
-                    <div class="inputfields1" style="left:26vw;"><span>Endzeit</span></div>
-                    <div id="checkboxgroup">
-                        <input type="checkbox" class="checkbox" style="clear:left; margin-right:10vw">
-                        <div class="checklabel"><span>w&ouml;chentlich</span></div>
-                        <input type="checkbox" class="checkbox" style="margin-right:10vw" >
-                        <div class="checklabel"><span>monatlich</span></div>
-                        <input type="checkbox" class="checkbox" style="margin-right:10vw">
-                        <div class="checklabel"><span>j&auml;hrlich</span></div>
+                    <div style="position:absolute; left:0;">
+                	    <input type="text" class="inputfields2" >
+                        <div class="inputfields1"><span>Titel</span></div>
+
                     </div>
-                    <div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn">Termin Speichern</span></div>
+
+                    <div style="position:absolute;right:21vw;">
+                        <div class="inputfields1"><span>Ort</span></div>
+                	    <input type="text" class="inputfields2"  />
+                     </div>
+
+                    <div style="position:absolute;left:0; margin-top:10vh;">
+                        <input type="date" class="inputfields2" />
+                        <div class="inputfields1"><span>Startdatum</span></div>
+
+                    </div>
+
+                    <div style="position:absolute;right:21vw;margin-top:10vh;">
+                        <div class="inputfields1"><span>Enddatum</span></div>
+                        <input type="date" class="inputfields2" />
+                    </div>
+
+                    <div style="left:0;position:absolute; margin-top:20vh;">
+                        <input type="time" placeholder="hh:mm" class="inputfields2"/>
+                        <div class="inputfields1"><span>Startzeit</span></div>
+                    </div>
+
+                    <div style="right:21vw;position:absolute; margin-top:20vh;">
+                        <div class="inputfields1"><span>Endzeit</span></div>
+                        <input type="time" placeholder="hh:mm" class="inputfields2" />
+                    </div>
+
+                    <div style="position:absolute;top:60vh;left:10.5vw; font-size:3vh;">Periodisch:</div>
+
+                    <div style="position:absolute;top:60vh;left:50%;transform:translateX(-50%);">
+
+                        <div id="checkboxgroup">
+                            <input id="c1" type="checkbox" class="checkbox">
+                            <label for="c1" class="checklabel"> <span>w&ouml;chentlich</span></label>
+                            <input id="c2" type="checkbox" class="checkbox" >
+                            <label for="c2" class="checklabel"> <span>monatlich</span></label>
+                            <input id="c3" type="checkbox" class="checkbox">
+                            <label for="c3" class="checklabel"> <span>j&auml;hrlich</span></label>
+                        </div>
+
+                     </div>
+                    <div id="saveapp" style="left: 10.5vw; right: 10.5vw; top:90%;" class="button"><span class="btn">Termin speichern</span></div>
                 </div>
             </div>
         </div>
