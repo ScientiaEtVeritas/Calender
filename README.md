@@ -10,7 +10,7 @@
 
 ### Functions
 * different views: month view, week view, day view
-* loading different views without reloading the page
+* user interaction without reloading the page (single page app)
 * displaying appointments in all views
 * color highlighting of present day, weekends and outside of the month days
 * login/registration procedure via Facebook
