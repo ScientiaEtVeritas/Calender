@@ -1,6 +1,7 @@
 var appointments = [];
 var termine = [];
 var refresh;
+var checkBoxes = [false,false,false];
 
 $(document).ready(function() {
 	var monate = ["Januar", "Februar" , "M&auml;rz", "April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
@@ -38,6 +39,65 @@ $(document).ready(function() {
 	for(var i = 0; i < 7; i++) {
 		$row.append("<div id='week-"+ (i+1) +"'></div>");
 	}
+	
+	$('.checkbox').change(function() {
+	
+	
+	// first option
+        /*if($(this).is(":checked")) {
+            if (document.getElementsByClassName("checkbox")[0].checked) {
+            	document.getElementsByClassName("checkbox")[1].disabled = true; 
+            	document.getElementsByClassName("checkbox")[2].disabled = true;  
+            }
+            else if (document.getElementsByClassName("checkbox")[1].checked) {
+            	document.getElementsByClassName("checkbox")[0].disabled = true; 
+            	document.getElementsByClassName("checkbox")[2].disabled = true;  
+            }
+            else if (document.getElementsByClassName("checkbox")[2].checked) {
+            	document.getElementsByClassName("checkbox")[0].disabled = true; 
+            	document.getElementsByClassName("checkbox")[1].disabled = true;  
+            }  	
+        }
+        else {
+        	if (!document.getElementsByClassName("checkbox")[0].disabled) {
+            	document.getElementsByClassName("checkbox")[1].disabled = false; 
+            	document.getElementsByClassName("checkbox")[2].disabled = false;  
+            }
+            else if (!document.getElementsByClassName("checkbox")[1].disabled) {
+            	document.getElementsByClassName("checkbox")[0].disabled = false; 
+            	document.getElementsByClassName("checkbox")[2].disabled = false;  
+            }
+            else if (!document.getElementsByClassName("checkbox")[2].disabled) {
+            	document.getElementsByClassName("checkbox")[0].disabled = false; 
+            	document.getElementsByClassName("checkbox")[1].disabled = false;  
+            } 
+        
+        }*/
+        // second option
+        if($(this).is(":checked")) {
+            if (document.getElementsByClassName("checkbox")[0].checked && checkBoxes[0] == false) {
+            	document.getElementsByClassName("checkbox")[1].checked = false; 
+            	document.getElementsByClassName("checkbox")[2].checked = false; 
+            	checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
+    			checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
+    			checkBoxes[2] = document.getElementsByClassName("checkbox")[0].checked; 
+            }
+            else if (document.getElementsByClassName("checkbox")[1].checked && checkBoxes[1] == false) {
+            	document.getElementsByClassName("checkbox")[0].checked = false; 
+            	document.getElementsByClassName("checkbox")[2].checked = false;
+            	checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
+    			checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
+    			checkBoxes[2] = document.getElementsByClassName("checkbox")[0].checked;  
+            }
+            else if (document.getElementsByClassName("checkbox")[2].checked && checkBoxes[2] == false) {
+            	document.getElementsByClassName("checkbox")[0].checked = false; 
+            	document.getElementsByClassName("checkbox")[1].checked = false;
+            	checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
+    			checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
+    			checkBoxes[2] = document.getElementsByClassName("checkbox")[0].checked;  
+            }  	
+        }
+    });
 
 	$('#saveapp').click(function(){
 	
@@ -98,6 +158,18 @@ $(document).ready(function() {
                             place:"Mainz",
                             per:per
                         });
+                        // clear document
+                        
+                        document.getElementsByClassName("inputfields2")[0].value = "";
+                        document.getElementsByClassName("inputfields2")[1].value = "";
+                        document.getElementsByClassName("inputfields2")[2].value = "";
+                        document.getElementsByClassName("inputfields2")[3].value = "";
+                        document.getElementsByClassName("checkbox")[0].checked = false;
+                        document.getElementsByClassName("checkbox")[1].checked = false;
+                        document.getElementsByClassName("checkbox")[2].checked = false;
+                        
+                        //fade away
+                        
                         socket.emit("newAppointment", appointments[(appointments.length-1)]);
                         $('#monthTable').removeClass('active');
                         $('#appointmentform').fadeOut(300, function() {
