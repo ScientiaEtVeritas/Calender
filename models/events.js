@@ -2,10 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var eventsSchema = new Schema({
-	user: {
-	 	type: Schema.ObjectId,
-		ref: 'users'
-	},
+	userID: Schema.Types.ObjectId,
 	title: String,
 	place: String,
 	startd: Number,
@@ -13,7 +10,12 @@ var eventsSchema = new Schema({
 	starty: Number,
 	endd: Number,
 	endm: Number,
-	endy: Number
+	endy: Number,
+	startts: Number,
+	starttm: Number,
+	endts: Number,
+	endtm: Number,
+	per: Number
 });
 
 mongoose.model('Event', eventsSchema);
