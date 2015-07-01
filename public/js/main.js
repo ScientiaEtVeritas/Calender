@@ -437,6 +437,15 @@ Date.prototype.getWeek = function () {
 		$('#monthTable').removeClass('active');
 		$('#appointmentform').fadeOut(300, function() {
 		});
+		document.getElementsByClassName("inputfields2")[0].value = "";
+        document.getElementsByClassName("inputfields2")[1].value = "";
+        document.getElementsByClassName("inputfields2")[2].value = "";
+        document.getElementsByClassName("inputfields2")[3].value = "";
+        document.getElementsByClassName("inputfields2")[4].value = "";
+        document.getElementsByClassName("inputfields2")[5].value = "";
+        document.getElementsByClassName("checkbox")[0].checked = false;
+        document.getElementsByClassName("checkbox")[1].checked = false;
+        document.getElementsByClassName("checkbox")[2].checked = false;
 	});
 
 	$('nav').click(function() {
