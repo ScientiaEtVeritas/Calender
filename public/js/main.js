@@ -105,15 +105,17 @@ $(document).ready(function() {
 		var monatlich = document.getElementsByClassName("checkbox")[1];
 		var jaehrlich = document.getElementsByClassName("checkbox")[2];
 	
-		var start = new Date(document.getElementsByClassName("inputfields2")[0].value);
-		var end = new Date(document.getElementsByClassName("inputfields2")[1].value);
+		var titel = document.getElementsByClassName("inputfields2")[0].value;
+		var ort = document.getElementsByClassName("inputfields2")[1].value;
+		var start = new Date(document.getElementsByClassName("inputfields2")[2].value);
+		var end = new Date(document.getElementsByClassName("inputfields2")[3].value);
 		
 		if (start.getFullYear() > 1 && end.getFullYear() > 1) {
 			// dates are ok
-			var startHours = parseInt((""+document.getElementsByClassName("inputfields2")[2].value).split(":")[0]);
-			var startMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[2].value).split(":")[1]);
-			var endHours = parseInt((""+document.getElementsByClassName("inputfields2")[3].value).split(":")[0]);
-			var endMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[3].value).split(":")[1])
+			var startHours = parseInt((""+document.getElementsByClassName("inputfields2")[4].value).split(":")[0]);
+			var startMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[4].value).split(":")[1]);
+			var endHours = parseInt((""+document.getElementsByClassName("inputfields2")[5].value).split(":")[0]);
+			var endMinutes = parseInt((""+document.getElementsByClassName("inputfields2")[5].value).split(":")[1])
 			
 			if (startHours >= 0 && startMinutes >=0 && endHours >= 0 && endMinutes >=0) {
 				// dates and time are Okay
@@ -149,13 +151,14 @@ $(document).ready(function() {
 					}
 				// check if start date < than end date
 				if (save) {
-                        if (start < end) {
+						if (titel.length >0 && ort.length > 0) {
+							if (start < end) {
                         //valid dates, ready to save!
                         appointments.push({
                             start:start,
                             end:end,
-                            title:"Neues Ereignis",
-                            place:"Mainz",
+                            title:titel,
+                            place:ort,
                             per:per
                         });
                         // clear document
@@ -179,6 +182,10 @@ $(document).ready(function() {
                     else {
                         alert("Das Startdatum muss vor dem Enddatum sein.");
                     }
+						}
+						else {
+							alert("Bitte geben Sie Titel und Ort des Ereignisses an.")
+						}
 				}
 				}
 			}
