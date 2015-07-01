@@ -54,90 +54,23 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename) {
         if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
 });
 var User = mongoose.model('User');
+var Event = mongoose.model('Event');
 
 var io = require('socket.io')(server);
-
+var currentDate = new Date().toLocaleString();
+/*
+User.find().remove().exec();
+Event.find().remove().exec();
+*/
 io.on('connection', function(socket){
     socket.on('login', function(data) {
         socket.facebook = data;
-        socket.emit("data", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
-"<?xml-stylesheet type=\"text/xsl\" href=\"CalTest.xsl\"?>"+
-"<calendar>"+
-	"<event>"+
-		"<title>Taeglich</title>"+
-		"<place>Karlsruhe</place>"+
-		"<startd>20</startd>"+
-		"<startm>11</startm>"+
-		"<starty>2015</starty>"+
-		"<endd>20</endd>"+
-		"<endm>11</endm>"+
-		"<endy>2015</endy>"+
-		"<startts>10</startts>"+
-		"<starttm>00</starttm>"+
-		"<starttse>00</starttse>"+
-		"<endts>11</endts>"+
-		"<endtm>00</endtm>"+
-		"<endtse>00</endtse>"+
-		"<per>1</per>"+
-	"</event>"+
-	"<event>"+
-		"<title>Mein Ereignis</title>"+
-		"<place>Karlsruhe</place>"+
-		"<startd>20</startd>"+
-		"<startm>06</startm>"+
-		"<starty>2015</starty>"+
-		"<endd>22</endd>"+
-		"<endm>06</endm>"+
-		"<endy>2015</endy>"+
-		"<startts>10</startts>"+
-		"<starttm>00</starttm>"+
-		"<starttse>00</starttse>"+
-		"<endts>11</endts>"+
-		"<endtm>00</endtm>"+
-		"<endtse>00</endtse>"+
-		"<per>0</per>"+
-	"</event>"+
-	"<event>"+
-		"<title>Monatlich</title>"+
-		"<place>Karlsruhe</place>"+
-		"<startd>22</startd>"+
-		"<startm>06</startm>"+
-		"<starty>2015</starty>"+
-		"<endd>22</endd>"+
-		"<endm>06</endm>"+
-		"<endy>2015</endy>"+
-		"<startts>10</startts>"+
-		"<starttm>00</starttm>"+
-		"<starttse>00</starttse>"+
-		"<endts>11</endts>"+
-		"<endtm>00</endtm>"+
-		"<endtse>00</endtse>"+
-		"<per>2</per>"+
-	"</event>"+
-	"<event>"+
-		"<title>Jedes Jahr</title>"+
-		"<place>Karlsruhe</place>"+
-		"<startd>15</startd>"+
-		"<startm>06</startm>"+
-		"<starty>2015</starty>"+
-		"<endd>15</endd>"+
-		"<endm>06</endm>"+
-		"<endy>2015</endy>"+
-		"<startts>10</startts>"+
-		"<starttm>00</starttm>"+
-		"<starttse>00</starttse>"+
-		"<endts>11</endts>"+
-		"<endtm>00</endtm>"+
-		"<endtse>00</endtse>"+
-		"<per>3</per>"+
-	"</event>"+
-"</calendar>");
-       	socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
-    
+	socket.facebook && console.log(currentDate + ": ***User " + socket.facebook.id + " named " + socket.facebook.name + " is connected***");
+
 	User.find({ facebookID : socket.facebook.id }, function (err, docs) {
 		if (err) return console.error(err);
 		if(docs.length == 0) {
-	                console.log('User ' + socket.facebook.name + ' saved...');
+	                console.log(currentDate + ': ***User ' + socket.facebook.name + ' saved in database***');
         	        var currentUser = new User();
                 	currentUser.facebookID = socket.facebook.id;
                	 	currentUser.name = socket.facebook.name;
@@ -145,15 +78,91 @@ io.on('connection', function(socket){
                 		if (err) return console.error(err);
 			})
         	} else {
-                	console.log('User ' + socket.facebook.name + ' not saved...');
+                	console.log(currentDate + ': ***User ' + socket.facebook.name + ' not saved - already in database***');
         	};
+
+
+	});
+	var eventsString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+		"<?xml-stylesheet type=\"text/xsl\" href=\"CalTest.xsl\"?>"+
+		"<calendar>";
+	User.find({facebookID : socket.facebook.id}, function (err, currentUser)
+	{
+		if (err) return console.error(err);
+		if(currentUser.length > 0)
+		{
+		var userID = currentUser[0]._id;
+		Event.find({userID : userID}, function (err2, events)
+		{
+			if (err2) return console.error(err2);
+			events.forEach(function(currentEvent)
+			{
+				eventsString += '<event>';
+				eventsString += '<title>' + currentEvent.title + '</title>';
+				eventsString += '<place>' + currentEvent.place + '</place>';
+				eventsString += '<startd>' + currentEvent.startd + '</startd>';
+				eventsString += '<startm>' + currentEvent.startm + '</startm>';
+				eventsString += '<starty>' + currentEvent.starty + '</starty>';
+				eventsString += '<endd>' + currentEvent.endd + '</endd>';
+				eventsString += '<endm>' + currentEvent.endm + '</endm>';
+				eventsString += '<endy>' + currentEvent.endy + '</endy>';
+				eventsString += '<startts>' + currentEvent.startts + '</startts>';
+				eventsString += '<starttm>' + currentEvent.starttm + '</starttm>';
+				eventsString += '<endts>' + currentEvent.endts + '</endts>';
+				eventsString += '<endtm>' + currentEvent.endtm + '</endtm>';
+				eventsString += '<per>' + currentEvent.per + '</per>';
+				eventsString += '</event>';
+			});
+		eventsString += '</calendar>';
+        	if(eventsString.indexOf("<event>") != -1)
+		{
+			socket.emit("data", eventsString);
+		}
+		});	
+		}
+	});
+    });
+
+	socket.on('newAppointment', function(docs)
+		{
+		var startDate = new Date(docs.start);
+		var endDate = new Date(docs.end);
+		var title = docs.title;
+		var place = docs.place;
+		var per = docs.per;
+		var newEvent = new Event();
+		User.find({facebookID : socket.facebook.id}, function (err, user)
+		{
+			if (err) return console.error(err);
+			console.log('user ' + user[0]._id);
+			newEvent.userID = user[0]._id;
+			newEvent.title = title;
+                	newEvent.place = place;
+                	newEvent.startd = startDate.getDate();
+                	newEvent.startm = (startDate.getMonth() + 1);
+                	newEvent.starty = startDate.getFullYear();
+                	newEvent.endd = endDate.getDate();
+                	newEvent.endm = (endDate.getMonth() + 1);
+                	newEvent.endy = endDate.getFullYear();
+                	newEvent.startts = startDate.getHours();
+			newEvent.starttm = startDate.getMinutes();
+			newEvent.endts = endDate.getHours();
+			newEvent.endtm = endDate.getMinutes(); 
+			newEvent.per = per;
+			newEvent.save(function(err2, newEvent) {
+                        if(err2) {
+                        	return console.error(err2);
+                        } else
+                        {
+                        	console.log(currentDate + ': ***Event ' + newEvent.title + ' saved in database (User: ' + socket.facebook.name + ')***');
+                        }
+                	});
+		});	
 	});
 
-});
-
-    socket.on('disconnect', function(){
-        socket.facebook && console.log("***User " + socket.facebook.id + " named " + socket.facebook.name + " is disconnected***");
-    });
+    	socket.on('disconnect', function(){
+        	socket.facebook && console.log(currentDate + ": ***User " + socket.facebook.id + " named " + socket.facebook.name + " is disconnected***");
+    	});
 });
 
 
