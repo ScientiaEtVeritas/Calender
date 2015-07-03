@@ -79,27 +79,22 @@ $(document).ready(function() {
         }*/
         // second option
         if($(this).is(":checked")) {
+        	console.log("call");
             if (document.getElementsByClassName("checkbox")[0].checked && checkBoxes[0] == false) {
             	document.getElementsByClassName("checkbox")[1].checked = false; 
-            	document.getElementsByClassName("checkbox")[2].checked = false; 
-            	checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
-    			checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
-    			checkBoxes[2] = document.getElementsByClassName("checkbox")[0].checked; 
+            	document.getElementsByClassName("checkbox")[2].checked = false;
             }
             else if (document.getElementsByClassName("checkbox")[1].checked && checkBoxes[1] == false) {
             	document.getElementsByClassName("checkbox")[0].checked = false; 
             	document.getElementsByClassName("checkbox")[2].checked = false;
-            	checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
-    			checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
-    			checkBoxes[2] = document.getElementsByClassName("checkbox")[0].checked;  
             }
             else if (document.getElementsByClassName("checkbox")[2].checked && checkBoxes[2] == false) {
             	document.getElementsByClassName("checkbox")[0].checked = false; 
             	document.getElementsByClassName("checkbox")[1].checked = false;
-            	checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
-    			checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
-    			checkBoxes[2] = document.getElementsByClassName("checkbox")[0].checked;  
             }  	
+            checkBoxes[0] = document.getElementsByClassName("checkbox")[0].checked;
+    		checkBoxes[1] = document.getElementsByClassName("checkbox")[1].checked;
+    		checkBoxes[2] = document.getElementsByClassName("checkbox")[2].checked;
         }
     });
 
