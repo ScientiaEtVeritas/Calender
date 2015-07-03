@@ -175,9 +175,20 @@ $(document).ready(function() {
                         //fade away
                         
                         socket.emit("newAppointment", appointments[(appointments.length-1)]);
-                        $('#monthTable').removeClass('active');
-                        $('#appointmentform').fadeOut(300, function() {
-                        });
+                        // fix this
+                        console.log("Current View: " + currentView);
+                        if (currentView == 0) {
+                        	console.log("0");
+                        	$('#monthTable').removeClass('active');
+                        	$('#appointmentform').fadeOut(300, function() {
+                        	});
+                        }
+                        else {
+                        	console.log("else");
+                        	$('#weekTable').removeClass('active');
+                        	$('#appointmentform').fadeOut(300, function() {
+                        	});
+                        }
                         refresh();
                     }
                  	   else {
@@ -334,7 +345,6 @@ Date.prototype.getWeek = function () {
 
 	function loadWeekCalendar() {
 		$("#header").html(monate[dateWithSelectedMonth.getMonth()] + " " + dateWithSelectedMonth.getFullYear() + "<br /><span id='kw'>Kalenderwoche " + dateWithSelectedMonth.getWeek() + "</span>");
-
 		for (var z = 1; z <= 7; z++) {
 			var tid = "week-" + z;
 			var $tid = $('#'+tid);
@@ -469,34 +479,39 @@ function loadAppointments() {
 
 
 function addAppointment(dt,tid) {
-	for (var i = 0;i<appointments.length;i++) {
+	var addedEvents = 0;
+	for (var i = 0;i<appointments.length&&addedEvents<2;i++) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
-			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			addedEvents++;
 		}
 		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			addedEvents++;
 		}
 		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			addedEvents++;
 		}
 		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			addedEvents++;
 		}
 	}		
 }
 
 function addWeekAppointment(dt,tid) {
-	for (var i = 0;i<appointments.length;i++) {
+	var addedApp = 0;
+	for (var i = 0;i<appointments.length&&addedApp<6;i++) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		if (compDateS<=dt && compDateE>=dt) {
@@ -504,24 +519,28 @@ function addWeekAppointment(dt,tid) {
 			var $tid = $('#'+tid + ' .appointments');
 			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
 			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+			addedApp++;
 		}
 		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
 			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+			addedApp++;
 		}
 		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
 			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+			addedApp++;
 		}
 		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			//$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span></div>");
 			$tid.append("<div class='appointmentweek' id=i"+tid+">"+ appointments[i].title +"<br>"+ timeFormatter(compDateS, compDateE, dt, i) +"</div>");
+			addedApp++;
 		}
 	}		
 }
