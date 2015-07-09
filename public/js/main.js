@@ -175,20 +175,13 @@ $(document).ready(function() {
                         //fade away
                         
                         socket.emit("newAppointment", appointments[(appointments.length-1)]);
-                        // fix this
-                        console.log("Current View: " + currentView);
-                        if (currentView == 0) {
-                        	console.log("0");
-                        	$('#monthTable').removeClass('active');
-                        	$('#appointmentform').fadeOut(300, function() {
-                        	});
-                        }
-                        else {
-                        	console.log("else");
-                        	$('#weekTable').removeClass('active');
-                        	$('#appointmentform').fadeOut(300, function() {
-                        	});
-                        }
+                        
+                        $('#monthTable').removeClass('active');
+                        $('#weekTable').removeClass('active');
+                        $('#appointmentform').fadeOut(300, function() {
+                        });
+                        
+                        
                         refresh();
                     }
                  	   else {
