@@ -488,13 +488,13 @@ function addAppointment(dt,tid) {
 			outputString = "<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
 		}
 		else if (appointments[i].title.length==7) {
-			outputString = "<div class='appointment' id=i"+tid+" style='font-size: 1.6vh!important;'><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
-		}
-		else if(appointments[i].title.length==8) {
 			outputString = "<div class='appointment' id=i"+tid+" style='font-size: 1.5vh!important;'><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
 		}
+		else if(appointments[i].title.length==8) {
+			outputString = "<div class='appointment' id=i"+tid+" style='font-size: 1.4vh!important;'><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
+		}
 		else {
-			outputString = "<div class='appointment' id=i"+tid+" style='font-size: 1.3vh!important;'><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
+			outputString = "<div class='appointment' id=i"+tid+" style='font-size: 1.2vh!important;'><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
 		}
 		
 		
