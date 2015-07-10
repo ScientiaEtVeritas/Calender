@@ -323,8 +323,8 @@ main {
 
 .dayview_back {
 	position:absolute;
-	width:200vw;
-	height:200vw;
+	width:20vw;
+	height:20vw;
 	top:0;
 	right:0;
 	transition:all 0.75s ease-in-out;
@@ -337,6 +337,8 @@ main {
 .active .dayview_back{
 	background-color:#fff;
 	transform:translate(50%, -50%) scale(1);
+	width:200vw;
+	height:200vw;
 }
 
 nav {
