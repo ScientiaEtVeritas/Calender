@@ -283,7 +283,7 @@ Date.prototype.getWeek = function () {
 			addAppointment(nextMonth,tid);
 			setStyle($tid, "new", 'cal-');
 			//addAppointment(lastMonthLastDay,tid);
-            $tid.data("date", new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1)));
+            $tid.data("date", nextMonth);
 			nextMonth.setDate(nextMonth.getDate()+1);
 			z++;
 		}
@@ -489,26 +489,26 @@ function addAppointment(dt,tid) {
 		if (compDateS<=dt && compDateE>=dt) {
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 			addedEvents++;
 		}
 		
 		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 			addedEvents++;
 		}
 		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 			addedEvents++;
 		}
 		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
-			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
+			$tid.append("<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 			addedEvents++;
 		}
 	}		
