@@ -281,9 +281,10 @@ main {
 }
 
 .appointment {
+    padding-top:0.2vh;
 	position: relative;
 	height:2.5vh !important;
-	font-size:1.8vh !important;
+	font-size:0.8vw !important;
 	width:100%;
 	background-color:rgba(0,0,0,0.1);
 	color:#333;
@@ -297,7 +298,7 @@ main {
 .appointment .time {
 	position:absolute !important;
 	left:0.5vh !important;
-	top:0 !important;
+	top:0.2vh !important;
 	transform: none !important;
 }
 
