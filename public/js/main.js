@@ -487,8 +487,8 @@ function addAppointment(dt,tid) {
 		if (appointments[i].title.length<6) {
 			outputString = "<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
 		} else {
-            outputString = "<div class='appointment' id=i"+tid+"><span" +
-                " class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title.substring(0,5)+"…" +  "</div>";
+            outputString = "<div class='appointment' id=i"+tid+"><span class='time'" +
+                " id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title.substring(0,5)+"<small style='font-size:1vh !important;'>…</small>" +  "</div>";
         }
 		
 		
