@@ -367,17 +367,17 @@ Date.prototype.getWeek = function () {
 		$('#appointmentform').delay(750).fadeIn(300, function() {
 		});
 		var $tid;
-		if ((""+event.target.id).length > 1) {
-			$tid = $("#" + event.target.id.replace("a",""));
-		}
-		else {
-			$tid = $("#" + event.target.lastChild.id.replace("a","")); 
-		}
-		//console.log("" + $tid.data("date").getFullYear() + "." + (""+$tid.data("date").getMonth()).formatTime() +"."+(""+$tid.data("date").getDate()).formatTime());
-		document.getElementsByClassName("inputfields2")[2].value = "" + $tid.data("date").getFullYear() + "-" + (""+($tid.data("date").getMonth()+1)).formatTime() +"-"+(""+$tid.data("date").getDate()).formatTime();
-		document.getElementsByClassName("inputfields2")[3].value = "" + $tid.data("date").getFullYear() + "-" + (""+($tid.data("date").getMonth()+1)).formatTime() +"-"+(""+$tid.data("date").getDate()).formatTime();
-	}
-	
+        if(event.target && event.target.id || event.target && event.target.lastChild && event.target.lastChild.id) {
+            if ((""+event.target.id).length > 1) {
+                $tid = $("#" + event.target.id.replace("a",""));
+            }
+            else {
+                $tid = $("#" + event.target.lastChild.id.replace("a",""));
+            }
+            if($tid.data("date")) document.getElementsByClassName("inputfields2")[2].value = "" + $tid.data("date").getFullYear() + "-" + (""+($tid.data("date").getMonth()+1)).formatTime() +"-"+(""+$tid.data("date").getDate()).formatTime();
+            if($tid.data("date")) document.getElementsByClassName("inputfields2")[3].value = "" + $tid.data("date").getFullYear() + "-" + (""+($tid.data("date").getMonth()+1)).formatTime() +"-"+(""+$tid.data("date").getDate()).formatTime();
+        }
+    }
 
 	$(document).on('click', '.appointment', function(event) {
 		$('#monthTable').addClass('active');
@@ -460,6 +460,11 @@ Date.prototype.getWeek = function () {
 		$('#menu').toggleClass('activeMenu');
 		$('#overlay').fadeToggle(250);
 	});
+
+    $('.button').click(function() {
+        $('#menu').toggleClass('activeMenu');
+        $('#overlay').fadeToggle(250);
+    });
 });
 
 function loadAppointments() {

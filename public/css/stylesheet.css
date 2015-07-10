@@ -62,9 +62,10 @@ h2 {
 	height: 88vh;
 	width: 100vw;
 	position: absolute;
+    right:0;
 	top:12vh;
 	background-color:rgba(100,100,100,0.4);
-	z-index:100;
+	z-index:5;
 	display:none;
 }
 #wochenAnsicht {
@@ -227,27 +228,33 @@ h2 {
 
 .button {
 	position: absolute;
-	background-color:lightskyblue;
-	color:#000;
-	transform: translateY(-50%);
-	top:50%;
+	background-color:rgba(255,255,255,0.3);
+	color:#fff;
+    font-size:3vh;
 	padding:1vw;
-	border:0.3vh solid #fff;
+    padding-top:2.7vh;
 	cursor: pointer;
 	text-align: center;
+    box-sizing: border-box;
+    z-index:10000000 !important;
 }
 
 #change {
-	width:5.5vw;
-	right:2vw;
+    top:2vh;
+    height:10vh;
+    width:20vw;
 }
 
 #today {
-	right:10.5vw;
+    top:14vh;
+    height:10vh;
+    width:20vw;
 }
 
 #appointment{
-	right:16.0vw;
+    top:26vh;
+    height:10vh;
+    width:20vw;
 }
 
 main {
