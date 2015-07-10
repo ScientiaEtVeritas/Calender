@@ -484,11 +484,11 @@ function addAppointment(dt,tid) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
 		var outputString ="";
-		if (appointments[i].title.length<7) {
+		if (appointments[i].title.length<6) {
 			outputString = "<div class='appointment' id=i"+tid+"><span class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>";
 		} else {
             outputString = "<div class='appointment' id=i"+tid+"><span" +
-                " class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title.substring(0,7)+"…" +  "</div>";
+                " class='time' id=i"+tid+">"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title.substring(0,5)+"…" +  "</div>";
         }
 		
 		
