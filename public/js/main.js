@@ -247,10 +247,13 @@ Date.prototype.getWeek = function () {
 			var tid = "cal-" + z;
 			var $tid = $('#'+tid);
 			var lastMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth(), z-differenceForWeekday+1);
-			//addAppointment(lastMonthLastDay,tid);
+			console.log("Date: " + lastMonthLastDay.toDateString())
+			console.log(tid)
+			
             $tid.data("date", lastMonthLastDay);
 			$tid.html("<span>" + lastMonthLastDay.getDate() + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'id='a" + tid + "'></i></div>");
 			setStyle($tid, "new",'cal-');
+			addAppointment(lastMonthLastDay,tid);
 		}
 
 		var currentMonthLastDay = new Date(dateWithSelectedMonth.getFullYear(), dateWithSelectedMonth.getMonth()+1, 0);
@@ -273,9 +276,15 @@ Date.prototype.getWeek = function () {
 		while (z<=42) {
 			tid = "cal-" + z;
 			$tid = $('#'+tid);
+			console.log(nextMonth.toDateString());
+			
+			
 			$tid.html("<span>" + (z-currentMonthLastDay.getDate()-differenceForWeekday+1)  + "</span><div class='appointments'></div><div class='addApp'><i class='fa fa-plus'id='a" + tid + "'></i></div>");
+			addAppointment(nextMonth,tid);
 			setStyle($tid, "new", 'cal-');
+			//addAppointment(lastMonthLastDay,tid);
             $tid.data("date", new Date(nextMonth.getFullYear(), nextMonth.getMonth(),(z-currentMonthLastDay.getDate()-differenceForWeekday+1)));
+			nextMonth.setDate(nextMonth.getDate()+1);
 			z++;
 		}
 
@@ -476,11 +485,14 @@ function addAppointment(dt,tid) {
 	for (var i = 0;i<appointments.length&&addedEvents<2;i++) {
 		var compDateS = new Date(appointments[i].start.getFullYear(),appointments[i].start.getMonth(),appointments[i].start.getDate());
 		var compDateE = new Date(appointments[i].end.getFullYear(),appointments[i].end.getMonth(),appointments[i].end.getDate());
+		
 		if (compDateS<=dt && compDateE>=dt) {
+			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append("<div class='appointment' id=i"+tid+"><span class='time'>"+ timeFormatter(compDateS, compDateE, dt, i) +"</span>" + appointments[i].title +  "</div>");
 			addedEvents++;
 		}
+		
 		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
 			console.log(tid);
 			var $tid = $('#'+tid + ' .appointments');
