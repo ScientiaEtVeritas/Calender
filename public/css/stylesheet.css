@@ -40,6 +40,19 @@ h2 {
 	font-size:3vh;
 }
 
+#logo {
+    transition:0.4s all ease-in-out;
+    transform:rotate(0deg);
+}
+
+#logo:hover {
+    transform:rotate(500deg);
+}
+
+#title {
+    transform:translateY(-50%);
+}
+
 #header, #next, #wochenAnsicht {
 	display: inline;
 }
@@ -237,6 +250,18 @@ h2 {
 	text-align: center;
     box-sizing: border-box;
     z-index:10000000 !important;
+}
+
+.buttonv {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 3vh;
+    padding: 1vw;
+    padding-top: 2.7vh;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 #change {

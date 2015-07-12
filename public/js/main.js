@@ -384,23 +384,7 @@ Date.prototype.getWeek = function () {
 		$('#dayview_close').addClass('month');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
-		var $tid = $("#" + event.target.id.replace("i",""));
-		$("#inputarea_dayView").html("");
-        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + (""+$tid.data("date").getDate()).formatTime() +'.' +("" + ($tid.data("date").getMonth()+1)).formatTime() +'.' +$tid.data("date").getFullYear());
-        var datesNeeded = getCorrespondingEvents($tid.data("date"));
-        var newHTML ='';
-        var height = 5;
-        for (var j=0;j<datesNeeded.length;j++) {
-			var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">';
-			var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
-			var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
-			var nHTML = "<p style='width:100%;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
-			newHTML+= outerHTML + nHTML + '</div>';
-			height += 0.1;
-		}
-        document.getElementById("inputarea_dayView").innerHTML = newHTML;
-        //$("inputarea_dayView").html();
-        
+		loadDayView(event.target.id);
 	});
 	
 	
@@ -409,24 +393,39 @@ Date.prototype.getWeek = function () {
 		$('#dayview_close').addClass('week');
 		$('#dayview').delay(750).fadeIn(300, function() {
 		});
-        var $tid = $("#" + event.target.id.replace("i",""));
+		loadDayView(event.target.id); 
+	});
+	
+	function loadDayView(theId) {
+		console.log(theId);
+		var $tid = $("#" + theId.replace("i",""));
+		console.log($tid);
 		$("#inputarea_dayView").html("");
-        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + (""+$tid.data("date").getDate()).formatTime() +'.' +(""+($tid.data("date").getMonth()+1)).formatTime() +'.' +$tid.data("date").getFullYear());
+        $("#header_text").html(wochenTageFull[$tid.data("date").getDay()] + ", " + (""+$tid.data("date").getDate()).formatTime() +'.' +("" + ($tid.data("date").getMonth()+1)).formatTime() +'.' +$tid.data("date").getFullYear());
         var datesNeeded = getCorrespondingEvents($tid.data("date"));
         var newHTML ='';
         var height = 5;
         for (var j=0;j<datesNeeded.length;j++) {
 			var outerHTML = '<div class="appointmentDetailView" style="top:'+ height + 'vw;">';
-			var startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
-			var endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+			var startString;
+			var endString;
+			if (datesNeeded[j].start.getDay() == datesNeeded[j].end.getDay() && datesNeeded[j].start.getMonth() == datesNeeded[j].end.getMonth() && datesNeeded[j].start.getFullYear() == datesNeeded[j].end.getFullYear()) {
+				
+				startString = ""+ (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
+				endString = ""+(""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+			}
+			else {
+				startString = (""+datesNeeded[j].start.getDate()).formatTime() + "." + (""+(datesNeeded[j].start.getMonth()+1)).formatTime()+"."+ datesNeeded[j].start.getFullYear()+" " + (""+datesNeeded[j].start.getHours()).formatTime() +":" +  (""+datesNeeded[j].start.getMinutes()).formatTime();
+				endString = (""+datesNeeded[j].end.getDate()).formatTime() + "." + (""+(datesNeeded[j].end.getMonth()+1)).formatTime()+"."+ datesNeeded[j].end.getFullYear()+" " + (""+datesNeeded[j].end.getHours()).formatTime() +":" +  (""+datesNeeded[j].end.getMinutes()).formatTime();
+			}
+			
 			var nHTML = "<p style='width:100%;'>" + datesNeeded[j].title + "<br>" + datesNeeded[j].place + "<br>" + startString + " - " + endString + "</p>";
 			newHTML+= outerHTML + nHTML + '</div>';
 			height += 0.1;
 		}
         document.getElementById("inputarea_dayView").innerHTML = newHTML;
-        
-        
-	});
+        //$("inputarea_dayView").html();
+	}
 	
 	$(document).on('click', '.week', function(event) {
 		$('#weekTable').removeClass('active');
@@ -462,6 +461,11 @@ Date.prototype.getWeek = function () {
 	});
 
     $('.button').click(function() {
+        $('#menu').toggleClass('activeMenu');
+        $('#overlay').fadeToggle(250);
+    });
+
+    $('#overlay').click(function() {
         $('#menu').toggleClass('activeMenu');
         $('#overlay').fadeToggle(250);
     });
@@ -504,17 +508,17 @@ function addAppointment(dt,tid) {
 			addedEvents++;
 		}
 		
-		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay()) { //taeglich
+		else if (appointments[i].per == 1 && dt.getDay() == compDateS.getDay() && compDateS<dt) { //taeglich
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append(outputString);
 			addedEvents++;
 		}
-		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate()) { //monatlich
+		else if (appointments[i].per == 2 && dt.getDate() == compDateS.getDate() && compDateS<dt) { //monatlich
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append(outputString);
 			addedEvents++;
 		}
-		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth()) { //jaehrlich
+		else if (appointments[i].per == 3 && dt.getDate() == compDateS.getDate() && dt.getMonth() == compDateS.getMonth() && compDateS<dt) { //jaehrlich
 			var $tid = $('#'+tid + ' .appointments');
 			$tid.append(outputString);
 			addedEvents++;
