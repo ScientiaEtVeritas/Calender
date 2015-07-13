@@ -3,6 +3,7 @@
 <calendar>
 	<event>
 		<title>Mein Ereignis</title>
+		<place>Karlsruhe</place>
 		<startd>20</startd>
 		<startm>11</startm>
 		<starty>2015</starty>
@@ -15,5 +16,6 @@
 		<endts>11</endts>
 		<endtm>00</endtm>
 		<endtse>00</endtse>
+		<per>0</per>
 	</event>
 </calendar>

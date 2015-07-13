@@ -1,0 +1,16 @@
+<!ELEMENT CalEvent (title,place,startd,starty,endd,endm,endy,startts,starttmstarttse,endts,endtm,endtse,per)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT place (#PCDATA)>
+<!ELEMENT startd (#CDATA)>
+<!ELEMENT startm (#CDATA)>
+<!ELEMENT starty (#CDATA)>
+<!ELEMENT endd (#CDATA)>
+<!ELEMENT endm (#CDATA)>
+<!ELEMENT endy (#CDATA)>
+<!ELEMENT startts (#CDATA)>
+<!ELEMENT starttm (#CDATA)>
+<!ELEMENT starttse (#CDATA)>
+<!ELEMENT endts (#CDATA)>
+<!ELEMENT endtm (#CDATA)>
+<!ELEMENT endtse (#CDATA)>
+<!ELEMENT per (#CDATA)>
