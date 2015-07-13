@@ -464,6 +464,11 @@ Date.prototype.getWeek = function () {
         $('#menu').toggleClass('activeMenu');
         $('#overlay').fadeToggle(250);
     });
+
+    $('#overlay').click(function() {
+        $('#menu').toggleClass('activeMenu');
+        $('#overlay').fadeToggle(250);
+    });
 });
 
 function loadAppointments() {
